@@ -1,14 +1,13 @@
 \documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{natbib}
+\RequirePackage[framemethod=tikz]{mdframed}
+
 \usepackage{graphicx}
 \usepackage[affil-it]{authblk}
-
-\usepackage{afterpage}
-
-\newcommand\blankpage{%
-    \null
-    \thispagestyle{empty}%
-    \addtocounter{page}{-1}%
-    \newpage}
 
 % paragraph formatting
 \setlength{\parindent}{0em}
@@ -19,19 +18,7 @@
 \newcommand{\edit}[1]{{\textcolor{red}{#1}}} % %edit
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 \newcommand{\aw}[1]{{\textcolor{armygreen}{[AW: #1]}}} % %AW comment
-\newenvironment{boxedtext}[1]{%
-  \begin{mdframed}[frametitle=#1,
-    frametitlefont=\scshape\mdseries\sffamily,
-    frametitlealignment=\centering,
-    backgroundcolor=black!20,
-    hidealllines=true,
-    innerleftmargin=11\p@,innerrightmargin=11\p@,
-    frametitleaboveskip=0.5\baselineskip,
-    innerbottommargin=0.5\baselineskip,
-    skipabove=\baselineskip,skipbelow=0.5\baselineskip]
-}{%
-  \end{mdframed}%
-}
+
 
 \title{Understanding the tripartite approach to Bayesian divergence time estimation}
 \author[1,2]{Rachel Warnock} \author[3]{April Wright}
@@ -46,9 +33,6 @@
 \begin{document}
 
 \maketitle
-
-%\rw{Are you happy with equal joint co-authorship?} 
-%\aw{Yeah, that's fine. Two author papers are sort of weird like that. If you need to be first or senior for any reason, that's fine by me, too}
 
 \section{Introduction}
 
@@ -115,22 +99,13 @@ We tend to measure evolutionary distance or branch lengths in an undated phyloge
 As noted above, phylogenetic characters do not contain information about absolute time. Evolutionary distances estimated using the substitution model actually represent a product of rate and time.
 Ultimately, we need to be able to estimate the substitution rate in \textit{expected substitutions per character per calendar unit time}.
 
-To extract information about rates and times from phylogenetic character data we need a modelling framework that describes the  relationship between these variables, in addition to the substitution model.
+To extract information about rates and times from phylogenetic character data we need a modeling framework that describes the  relationship between these variables, in addition to the substitution model.
 This is achieved with the addition of the two key model components required to date a phylogeny: the \textit{clock model} and \textit{the tree model}.
-The clock model describes how the substitution rate varies (or not) across the tree.
-The tree model describes the tree generating process.
+The clock model describes how the substitution rate varies (or does not) across the tree.
+The tree model describes the process of speciation, extinction, and lineage sampling that generated the tree.
 To tease apart rate and time we either need to know the average substitution rate or we need to calibrate the substitution rate using temporal information from elsewhere.
 For macro-evolutionary timescales calibration information typically comes from fossil sampling times or the age of biogeographic events. This information is typically incorporated into the tree model.
 It is important for biologists to understand each of the component pieces (the clock and tree models) in order to make good parameter choices.
-
-\clearpage
-\afterpage{\blankpage}
-
-
-\rw{Somewhere we should consider adding our preference for Bayesian inference, e.g., Bayesian approaches 
-for estimating time calibrated trees are currently the only available methods that can incorporate the uncertainty associated with temporal information in a statistically coherent way, meaning that the uncertainty is properly consider during parameter estimation and reflected as part of the output.
-Further, Bayesian inference provides an intuitive approach to accommodating uncertainty in other evolutionary and sampling parameters, and incorporating our existing knowledge of parameter values.
-}
 
 \section{A brief introduction to Bayesian Inference in phylogeny}
 
@@ -140,7 +115,17 @@ Unlike some other methods, Bayesian methods estimate a sample of phylogenetic tr
 We can think of Bayesian inference as having three important components: the likelihood, the prior, and the posterior.
 Fig. \ref{fig:bayes} provides an overview of how these components are connected via Bayes' theorem to data and the tripartite model of evolution described in this review.
 
+We will be discussing these methods in a Bayesian context for a few reasons.
+Perhaps the most important is that Bayesian methods estimate a sample of plausible parameter values under a model. 
+A Bayesian method inherently provides a look at the uncertainty in any model parameter.
+Since we are unlikely to be able to observe the true parameter values for event that occurred millions of years in the past, it is prudent to consider possible ranges for parameters in our model.
+Bayesian methods also allow researchers to constrain the values an individual parameter can take. 
+This is a desirable property because we may have prior information from studies conducted by others about the numerical value of a parameter.
+In this way, Bayesian inference provides an intuitive approach to accommodating uncertainty in other evolutionary and sampling parameters, and incorporating our existing knowledge of parameter values.
+On a practical level, most divergence time estimation software has been written in a Bayesian context.
+
 \rw{LH said she didn't think of divergence time estimation and time scaling as interchangeable but I actually do. Now that you've eliminated the term time scaling maybe this doesn't matter?}
+\aw{The more I think about it, the more I don't. I think if we say Bayesian time-scaling, I think of that as interchangeable with divergence time estimation. But coming from a molecular perspective, I also think of things like r8s (which I guess is sort of like some of the post-hoc time scalers you see in paleo) that are really philosophically different than what we're doing here.}
 
 \subsection{The Likelihood}
 
@@ -150,36 +135,10 @@ This is different than in a statistics, when we calculate the likelihood, or pro
 A model is a mathematical description of a phenomenon.
 Models are made up of parameters, which are thought to represent key factors of that phenomenon.
 The relationship between parameters is described through mathematical expressions.
-
-
-In the case of a phylogenetic tree, the generating process may be a complex interplay of biological phenomena and sampling strategies.
-Models can have parameters that are meaningful in a biological context, though some may be less clearly biological.
-We will discuss in the following sections, the meanings of some common parameters of morphological and molecular character evolution.
-We also make assumptions about how age information was generated, such as the age associated with fossil samples or biogeographic events.
-In estimating a dated phylogeny, researchers often combine a model of character evolution, with a model that captures the processes of speciation and extinction (sometimes termed macroevolutionary processes) that have occurred over geological time.
-
-\rw{Based on LH and DB's comments I would suggest further rewriting/combining these paragraphs.}
-\rw{LH also suggested introducing some of this after we describe the generating processes. Perhaps to simultaneously address this, in combination with some of her comments on the intro, we should explain the generating processes in a bit more deatil in the intro?}
-
-In general, the parameters of a model are treated as \textit{random variables}.
+Many parameters of a model are treated as \textit{random variables}.
 A random variable has an unknown value, for which candidate values will be tested as the tree search proceeds. 
-In a Bayesian analysis, different values will be \textit{sampled}, or proposed, for each random variable \edit{from the range of potential values}.
-Some variables or model parameters may be \textit{fixed}, or set by the researcher, if the value is known either from an experiment or a literature search.
-A common fixed value is extant species sampling --- we often have a strong idea about what proportion of extant taxa in our clade of interest we have included in our analysis.
-Values may also be deterministic, or transformed from other variables in the model. \rw{Dave notes that this term is very revbayes specific. Perhaps we can just preferentially refer to these as `transformed variables' (sometimes known as deterministic variables), rather than the other way round?}
-An example of a deterministic parameter would be something like a diversification rate, which is typically speciation minus extinction.
-In most models, speciation and extinction are estimated on their own, the diversification rate is transformed from the two.
-In many analyses, the phylogeny itself is a deterministic variable, being the combination of the topology and branch length parameters.
-Values for model parameters are proposed, and evaluated via the likelihood or a combination of the likelihood and the priors.  
-In pure likelihood methods, such as maximum likelihood estimation, the combination of fixed model parameter values that maximizes the likelihood of the data given the model is preferred.
-Bayesian methods, on the other hand, estimate a pool of solutions that are plausible, taking into account both the likelihood and prior.
-In the case of Bayesian methods, the likelihood model is only one component of the estimation.
-In maximum likelihood methods, it is the only component. \rw{Consider putting some of this in a box?}
-
-For example, let us assume we have a simple birth-death model in which there is a parameter (birth) governing the rate at which lineages originate, and one (death) describing the rate at which lineages end.
-In the case of a likelihood implementation, we would try combinations of values for our two parameters. 
-The preferred solution would be the value which maximizes the likelihood of the data given the model.
-In Bayesian estimations, \edit{typically} a sample of solutions will be generated, and will be evaluated via both the model and the priors. \rw{I don't really agree with Dave's comment that this is mcmc specific? The posterior is a sample of solutions, irrespective of whether that solution is recovered analytically or via mcmc?}
+In a Bayesian analysis, different values will be \textit{sampled}, or proposed, for each random variable from the range of potential values.
+A sample of solutions will be generated, and will be evaluated via both the model and the priors. \rw{I don't really agree with Dave's comment that this is mcmc specific? The posterior is a sample of solutions, irrespective of whether that solution is recovered analytically or via mcmc?} \aw{I agree. I was confused by his comment}
 In the tripartite model for divergence time estimation, all parts of the model (site model, clock model and tree model) will be represented in the likelihood as well as in the prior (Fig. \ref{fig:bayes}).
 
 
@@ -190,10 +149,8 @@ In the tripartite model for divergence time estimation, all parts of the model (
 Bayesian methods incorporate researchers' prior knowledge and beliefs about the values a parameter may take through the use of priors.
 A prior specifies a probability distribution from which the value of a particular parameter may be drawn.
 A prior distribution should reflect the belief or knowledge a researcher has about the value of a parameter.
-In the case of our simple birth-death model, we may choose priors based on what a previous analysis has discovered about the rates of lineage origination and extinction.
 
-
-The value of a parameter can fall outside the prior distribution.
+Importantly, the value of a parameter can fall outside the prior distribution.
 Priors can be enforced with varying degrees of strength.
 If the data strongly support a value for a parameter that is in conflict with the prior specified, that value can still be supported if the prior isn't strongly enforced.
 Priors can also be chosen to offer maximal flexibility in the potential values for the parameter.
@@ -201,19 +158,45 @@ For example, a weak intuition about the value of a parameter can be incorporated
 In biology, it is fairly common to see distributions such as the Gamma or Exponential, which can be very flexible, depending on the centrality and/or shape parameters.
 
 Sometimes the distinction between what we call a model and the prior can be difficult to see.
-In our example, of a birth-death process, we have two parameters.
-Let us say that we expect speciation to be fairly low.
-But we aren't sure --- some previous analyses have indicated it may be higher.
-We place a flexible exponential(10) prior on speciation, which has an expected value of 0.1 \edit{per lineage per myr}.
-Having little intuition about what we expect for the extinction rate, we decide to also use an exponential(10) prior.
-But then we read a paper that indicates extinction tends to be very high in this group.
-So we start another estimation in which we use a normal prior on extinction rate, with the mean equal to the high value from this paper. 
-\rw{Is there any reason this can't also be an exponential distribution?}
-These two analyses make different \edit{prior} assumptions about the generating process, even though they incorporate the same parameters. 
-In this way, both the parameters and the priors chosen for those parameters, can affect our analysis.
+By constraining the values a parameter can take, it is possible to steer estimation towards or away from certain sets of values, without changing what facets of the generating process are being modeled. 
+
+\subsection{The Posterior}
+
+The posterior is the outcome of a Bayesian analysis and includes a distribution of plausible for all of the variable parameters in our models, including the topology and divergence times.
+This component effectively combines the information from the prior with the likelihood. \rw{DB doesn't think this is a complete enough description of the posterior.} \aw{It seems good to me?}
+
+Values for each parameter will appear in the posterior distribution in proportion to how probable they are, given our model and priors.
+The highest point or points of the distribution represents the most probable parameter estimates.
+The variance of the posterior distribution for a given parameter reflects the uncertainty in that estimate.
+If the variance in our posterior distribution is relatively high this reflects lots of uncertainty in our parameter estimate.
+Conversely, if the variance is relatively low, this reflects low uncertainty in our estimate.
+Note that low uncertainty does not necessarily mean an answer is correct, just that there is high support for it.
+It is also possible to have more than one peak in your posterior sample.
+This might indicate that multiple solutions are feasible given the model and the data.
+
+From the posterior distribution of many standard model parameters (e.g. rate parameters) we can construct credible intervals, which are the Bayesian equivalent of confidence intervals.  
+We typically use the 95\% highest posterior density (HDP) interval, which is the spread of posterior values that contains 95\% of the posterior.
+The upper and lower limits of the of 95\% HPD are intuitive way of communicating the uncertainty associated with parameters such as rates or node ages.
+
+Summarizing a posterior distribution of trees is altogether more tricky.
+There are a variety of approaches to generating summary trees, which use different strategies for capturing the phylogenetic relationships that are best supported by the posterior.
+Once we have a summary tree, we can obtain a  support value for each node, based on the proportion of trees in the posterior in which that node also appears. 
+This is often referred to as the posterior probability.
+Much as all models have assumptions, all approaches to producing summary trees have benefits and downsides, especially if there is a lot of uncertainty associated with the tree topology.
+We emphasise that the posterior output of Bayesian phylogenetic tree inference is really a distribution of trees and that we should be careful to avoid placing too much faith in any one statistic or summary value from that distribution.
+Instead, it is important to understand the underlying models used to generate your tree, and how these may result in uncertainty given the data you have.
+
+Because the prior distribution can affect the parameters estimated, Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
+Called Bayes Factors \cite{Xie2011}, these metrics describe the support for one model, and all its associated priors, over another model. 
+These methods weigh the posterior evidence of two models against one another. 
+These methods can be used to compare non-nested or mixture models.
+It is worth noting, however, that the Bayes Factor can only provide evidence in favor of one model.
+It cannot tell a researcher if the model is adequate; that is, capturing important facets of the process of evolution.
+Other methods are available that can be used to assess model adequacy \cite{Brown2009, Brown2014}.
+
 
 \clearpage
-\begin{boxedtext}{The likelihood\, the prior\, and the posterior}
+\begin{boxedtext}{The likelihood, the prior, and the posterior}
 
 It can be confusing for novices to understand what the likelihood, the prior, the posterior truly mean.
 In plain language, the likelihood is the probability of the data given a model.
@@ -229,39 +212,7 @@ A good solution will often appear in the posterior sample many times.
 
 \end{boxedtext}
 
-\subsection{The Posterior}
 
-The posterior is the outcome of a Bayesian analysis and includes a distribution of plausible for all of the variable parameters in our models, including the topology and divergence times.
-This component effectively combines the information from the prior with the likelihood. \rw{DB doesn't think this is a complete enough description of the posterior.}
-
-Values for each parameter will appear in the posterior distribution in proportion to how probable they are, given our model and priors.
-The \edit{highest point or points} \sout{peak} of the distribution represents the most probable parameter estimates.
-The variance of the posterior distribution for a given parameter reflects the uncertainty in that estimate.
-If the variance in our posterior distribution is relatively high this reflects lots of uncertainty in our parameter estimate.
-Conversely, if the variance is relatively low, this reflects low uncertainty in our estimate.
-Note that low uncertainty does not necessarily mean an answer is correct, just that there is high support for it.
-It is also possible to have more than one peak in your posterior sample.
-This might indicate that there are multiple solutions that may be feasible given the model and the data.
-
-From the posterior distribution of many standard model parameters (e.g. rate parameters) we can construct credible intervals, which are the Bayesian equivalent of confidence intervals.  
-We typically use the 95\% highest posterior density (HDP) interval, which is the spread of posterior values that contains 95\% of the posterior.
-The upper and lower limits of the of 95\% HPD are intuitive way of communicating the uncertainty associated with parameters such as rates or node ages.
-
-Summarizing a posterior distribution of trees is altogether more tricky.
-There are a variety of approaches to generating summary trees, which use different strategies for capturing the phylogenetic relationships that are best supported by the posterior.
-Once we have a summary tree, we can obtain a  support value for each node, based on the proportion of trees in the posterior in which that node also appears. %DB: is there really any other support value for nodes in Bayesian phylogenetics? Rw: no but I don't see the harm in clarifying this?
-Much as all models have assumptions, all approaches to producing summary trees have benefits and downsides, especially if there is a lot of uncertainty associated with the tree topology.
-We emphasise that the posterior output of Bayesian phylogenetic tree inference is really a distribution of trees and that we should be careful to avoid placing too much faith in any one statistic or summary value from that distribution.
-Instead, it is important to understand the underlying models used to generate your tree, and how these may result in uncertainty given the data you have.
-
-Because the prior distribution can affect the parameters estimated, Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
-Called Bayes Factors \cite{Xie2011}, these metrics describe the support for one model, and all its associated priors, over another model. 
-These methods weigh the posterior evidence of two models against one another. 
-These methods can be used to compare non-nested or mixture models.
-It is worth noting, however, that the Bayes Factor can only provide evidence in favor of one model.
-It cannot tell a researcher if the model is adequate; that is, capturing important facets of the process of evolution.
-Other methods are available that can be used to assess model adequacy \cite{Brown2009, Brown2014}.
-\clearpage
 
 \begin{boxedtext}{Summarizing the posterior sample of trees}
 
@@ -327,6 +278,7 @@ Because parsimony remains well-used in morphological phylogenetics, and parsimon
 
 \section{Substitution models}
 
+The first componenant of the tripartite model is the substitution model.
 The substitution model, sometimes called the site model, describes how characters in the dataset evolve.
 These models are called substitution models because they were initially written to describe nucleotide changes.
 These models describe how character change accumulates over time, leading to the observed phylogenetic data.
@@ -405,8 +357,7 @@ Discrete models are often adapted to take into account that characters (nucleoti
 A Gamma distribution can be manipulated to take a wide range of shapes.
 This distribution is then discretized into four (or more) categories and the median rate of each category is used as the rate of evolution for that category.
 This allows different sites to evolve according to different evolutionary rates, thereby correcting for different rates at sites.
-This practice is common for both molecular and morphological data, though some studies indicate lognormal-distributed ACRV is more appropriate \cite{wagner2011, Harrison2015}. The is because characters that do not vary are parsimony-uninformative and therefore are usually not collected by morphologists. \rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}
-
+This practice is common for both molecular and morphological data, though some studies indicate lognormal-distributed ACRV is more appropriate \cite{wagner2011, Harrison2015}. The is because characters that do not vary are parsimony-uninformative and therefore are usually not collected by morphologists. \rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}\aw{I think  Gamma tends to put more mass in a zero rate category. But I also think you could get basically the same effect by manipulating the parameters of the gamma more - I think a Gamma(2) would give basically the behavior Wagner and Harrison point out.}
 Regardless of the specifics of a given model, both data types use discrete state continuous-time Markov chains.
 `Continuous-time' refers to models allowing change between character states to occur instantaneously at any point in an evolutionary history.
 Changes in the character state is not confined to the node; instead, branch lengths on a phylogeny are proportional to the number of expected changes per character along that particular branch. 
@@ -431,7 +382,7 @@ To tease apart rate and time, we either need to know the average substitution ra
 Temporal information typically comes from  fossil sampling times.
 Alternatively, this info can come from biogeographic data, or from human-recorded data in the case of phylogenetic problems concerning recent timescales.
 This information is then modeled using hierarchical  Bayesian models to estimate time since divergence.
-\edit{The model is hierarchical because it links together different sub-models (i.e. the substitution, clock and tree models) (see box).}
+The model is hierarchical because it links together different sub-models (i.e. the substitution, clock and tree models) (see box).
 There are two key model components required to date a phylogeny: the clock model and the tree model.
 Rate and time are often only semi-identifiable.
 A model is \textit{identifiable} when different values for the parameters generate different probabilities for the observed data.
@@ -454,7 +405,7 @@ Below, we will review some common clock models, which can apply to molecular or 
 \subsubsection{Strict Clock}
 In the earliest days of divergence time estimation, a strict clock was used \cite{Zuckerkandl1962, Zuckerkandl1965EvolutionaryDivergenceConvergence}.
 Under the strict (or global) clock model, we assume that the rate of character change is constant across time and that the same rates applies to all branches in the tree.
-This model adds one parameter to the overall model, describing the conversion between \edit {the rate of} character change \sout{rate} and \sout{an} absolute time \sout{branch length}.
+This model adds one parameter to the overall model, describing the conversion between the rate of character change  and absolute time.
 
 \subsubsection{Uncorrelated Clock}
 Of course, most clades do have variation in the rate of evolution over time. 
