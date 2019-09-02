@@ -19,6 +19,20 @@
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 \newcommand{\aw}[1]{{\textcolor{armygreen}{[AW: #1]}}} % %AW comment
 
+\newenvironment{boxedtext}[1]{%
+  \begin{mdframed}[frametitle=#1,
+    frametitlefont=\scshape\mdseries\sffamily,
+    frametitlealignment=\centering,
+    backgroundcolor=black!20,
+    hidealllines=true,
+    innerleftmargin=11\p@,innerrightmargin=11\p@,
+    frametitleaboveskip=0.5\baselineskip,
+    innerbottommargin=0.5\baselineskip,
+    skipabove=\baselineskip,skipbelow=0.5\baselineskip]
+}{%
+  \end{mdframed}%
+}
+
 
 \title{Understanding the tripartite approach to Bayesian divergence time estimation}
 \author[1,2]{Rachel Warnock} \author[3]{April Wright}
@@ -122,11 +136,12 @@ Since we are unlikely to be able to observe the true parameter values for an eve
 Bayesian methods also allow researchers to constrain the values an individual parameter can take. 
 This is a desirable property because we may have prior information from studies conducted by others about the numerical value of a parameter.
 In this way, Bayesian inference provides an intuitive approach to accommodating uncertainty in other evolutionary and sampling parameters, and incorporating our existing knowledge of parameter values.
-On a practical level, most divergence time estimation software has been written in a Bayesian context. %RW: hmm, maybe the most widely used...
+On a practical level, much of the widely-used divergence time estimation software has been written in a Bayesian context.
 
 %\rw{LH said she didn't think of divergence time estimation and time scaling as interchangeable but I actually do. Now that you've eliminated the term time scaling maybe this doesn't matter?}
 %\aw{The more I think about it, the more I don't. I think if we say Bayesian time-scaling, I think of that as interchangeable with divergence time estimation. But coming from a molecular perspective, I also think of things like r8s (which I guess is sort of like some of the post-hoc time scalers you see in paleo) that are really philosophically different than what we're doing here.}
 %\rw{Maybe we can leave this until a reviewer/someone else brings it up.}
+%aw{Yes, I don't think this is crucial. We can say dated and call it good.}
 
 \subsection{The Likelihood}
 
@@ -139,13 +154,13 @@ The relationship between parameters is described through mathematical expression
 Many parameters of a model are treated as \textit{random variables}.
 A random variable has an unknown value, for which candidate values will be tested as the tree search proceeds. 
 In a Bayesian analysis, different values will be \textit{sampled}, or proposed, for each random variable from the range of potential values.
-A sample of solutions will be generated, and will be evaluated via both the model and the priors. \rw{I don't really agree with Dave's comment that this is mcmc specific? The posterior is a sample of solutions, irrespective of whether that solution is recovered analytically or via mcmc?} \aw{I agree. I was confused by his comment}
+A sample of solutions will be generated, and will be evaluated via both the model and the priors.
 In the tripartite model for divergence time estimation, all parts of the model (site model, clock model and tree model) will be represented in the likelihood as well as in the prior (Fig. \ref{fig:bayes}).
 
 
 \subsection{The Prior}
 
-\rw{To do: as per DB's suggestion look into Alfaro and Holder's 2006 perspective on priors.}
+%\rw{To do: as per DB's suggestion look into Alfaro and Holder's 2006 perspective on priors.}
 
 Bayesian methods incorporate researchers' prior knowledge and beliefs about the values a parameter may take through the use of priors.
 A prior specifies a probability distribution from which the value of a particular parameter may be drawn.
@@ -158,42 +173,37 @@ Priors can also be chosen to offer maximal flexibility in the potential values f
 For example, a weak intuition about the value of a parameter can be incorporated via a vague prior.
 In biology, it is fairly common to see distributions such as the Gamma or Exponential, which can be very flexible, depending on the centrality and/or shape parameters.
 
-Sometimes the distinction between what we call a model and the prior can be difficult to see.
+Sometimes the distinction between what we call a model and the prior can be difficult to see (See Box `The Likelihood' for more information.).
 By constraining the values a parameter can take, it is possible to steer estimation towards or away from certain sets of values, without changing what facets of the generating process are being modeled. 
 
 \subsection{The Posterior}
 
 The posterior is the outcome of a Bayesian analysis and includes a distribution of plausible for all of the variable parameters in our models, including the topology and divergence times.
-This component effectively combines the information from the prior with the likelihood. \rw{DB doesn't think this is a complete enough description of the posterior.} \aw{It seems good to me?}
+This component effectively combines the information from the prior with the likelihood. % \rw{DB doesn't think this is a complete enough description of the posterior.} \aw{It seems good to me?}
 
 Values for each parameter will appear in the posterior distribution in proportion to how probable they are, given our model and priors.
 The highest point or points of the distribution represents the most probable parameter estimates.
 The variance of the posterior distribution for a given parameter reflects the uncertainty in that estimate.
 If the variance in our posterior distribution is relatively high this reflects lots of uncertainty in our parameter estimate.
 Conversely, if the variance is relatively low, this reflects low uncertainty in our estimate.
-Note that low uncertainty does not necessarily mean an answer is correct, just that there is high support for it.
+Note that low uncertainty does not necessarily mean a value is true, just that there is high support for it given the data and model.
 It is also possible to have more than one peak in your posterior sample.
-This might indicate that multiple solutions are feasible given the model and the data.
+This indicates that multiple solutions are feasible given the model and the data.
 
 From the posterior distribution of many standard model parameters (e.g. rate parameters) we can construct credible intervals, which are the Bayesian equivalent of confidence intervals.  
 We typically use the 95\% highest posterior density (HDP) interval, which is the spread of posterior values that contains 95\% of the posterior.
 The upper and lower limits of the of 95\% HPD are intuitive way of communicating the uncertainty associated with parameters such as rates or node ages.
-
 Summarizing a posterior distribution of trees is altogether more tricky.
 There are a variety of approaches to generating summary trees, which use different strategies for capturing the phylogenetic relationships that are best supported by the posterior.
-Once we have a summary tree, we can obtain a  support value for each node, based on the proportion of trees in the posterior in which that node also appears. 
-This is often referred to as the posterior probability.
-Much as all models have assumptions, all approaches to producing summary trees have benefits and downsides, especially if there is a lot of uncertainty associated with the tree topology.
+Support values for each node are typically based on the proportion of trees in the posterior in which that node also appears. 
+This is referred to as the posterior probability. 
+More information on this can be found in the box ``Summarizing the posterior sample of trees". 
+
+All approaches to producing summary trees have benefits and downsides, especially when there is high uncertainty associated with the tree topology.
 We emphasise that the posterior output of Bayesian phylogenetic tree inference is really a distribution of trees and that we should be careful to avoid placing too much confidence in any one statistic or summary value from that distribution.
 Instead, it is important to understand the underlying models used to generate your tree, and how these may result in uncertainty given the data you have.
 
-Because the prior distribution can affect the parameters estimated, Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
-Called Bayes Factors \cite{Xie2011}, these metrics describe the support for one model, and all its associated priors, over another model. 
-These methods weigh the posterior evidence of two models against one another. 
-These methods can be used to compare non-nested or mixture models.
-It is worth noting, however, that the Bayes Factor can only provide evidence in favor of one model.
-It cannot tell a researcher if the model is adequate; that is, capturing important facets of the process of evolution.
-Other methods are available that can be used to assess model adequacy \cite{Brown2009, Brown2014}.
+\aw{moved Bayes Factor discussion to manuscraps file. Perhaps this can go into our synthesis, where we discuss testability}
 
 
 \clearpage
