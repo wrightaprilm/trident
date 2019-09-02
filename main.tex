@@ -104,12 +104,12 @@ This is achieved with the addition of the two key model components required to d
 The clock model describes how the substitution rate varies (or does not) across the tree.
 The tree model describes the process of speciation, extinction, and lineage sampling that generated the tree.
 To tease apart rate and time we either need to know the average substitution rate or we need to calibrate the substitution rate using temporal information from elsewhere.
-For macro-evolutionary timescales calibration information typically comes from fossil sampling times or the age of biogeographic events. This information is typically incorporated into the tree model.
-It is important for biologists to understand each of the component pieces (the clock and tree models) in order to make good parameter choices.
+For macroevolutionary timescales calibration information typically comes from fossil sampling times or the age of biogeographic events. This information is incorporated into the tree model.
+It is important for biologists to understand each of the component pieces (the substitution, clock and tree models) in order to make good parameter choices.
 
 \section{A brief introduction to Bayesian Inference in phylogeny}
 
-In this review, we will discuss \underline{divergence time estimation} using Bayesian methods. 
+In this review, we will discuss divergence time estimation using Bayesian methods. 
 These are methods which incorporate prior information and researcher intuition about parameters in our model.
 Unlike some other methods, Bayesian methods estimate a sample of phylogenetic trees and values for the parameters of the underlying phylogenetic model.
 We can think of Bayesian inference as having three important components: the likelihood, the prior, and the posterior.
@@ -118,14 +118,15 @@ Fig. \ref{fig:bayes} provides an overview of how these components are connected 
 We will be discussing these methods in a Bayesian context for a few reasons.
 Perhaps the most important is that Bayesian methods estimate a sample of plausible parameter values under a model. 
 A Bayesian method inherently provides a look at the uncertainty in any model parameter.
-Since we are unlikely to be able to observe the true parameter values for event that occurred millions of years in the past, it is prudent to consider possible ranges for parameters in our model.
+Since we are unlikely to be able to observe the true parameter values for an event that occurred millions of years in the past, it is prudent to consider possible ranges for parameters in our model.
 Bayesian methods also allow researchers to constrain the values an individual parameter can take. 
 This is a desirable property because we may have prior information from studies conducted by others about the numerical value of a parameter.
 In this way, Bayesian inference provides an intuitive approach to accommodating uncertainty in other evolutionary and sampling parameters, and incorporating our existing knowledge of parameter values.
-On a practical level, most divergence time estimation software has been written in a Bayesian context.
+On a practical level, most divergence time estimation software has been written in a Bayesian context. %RW: hmm, maybe the most widely used...
 
-\rw{LH said she didn't think of divergence time estimation and time scaling as interchangeable but I actually do. Now that you've eliminated the term time scaling maybe this doesn't matter?}
-\aw{The more I think about it, the more I don't. I think if we say Bayesian time-scaling, I think of that as interchangeable with divergence time estimation. But coming from a molecular perspective, I also think of things like r8s (which I guess is sort of like some of the post-hoc time scalers you see in paleo) that are really philosophically different than what we're doing here.}
+%\rw{LH said she didn't think of divergence time estimation and time scaling as interchangeable but I actually do. Now that you've eliminated the term time scaling maybe this doesn't matter?}
+%\aw{The more I think about it, the more I don't. I think if we say Bayesian time-scaling, I think of that as interchangeable with divergence time estimation. But coming from a molecular perspective, I also think of things like r8s (which I guess is sort of like some of the post-hoc time scalers you see in paleo) that are really philosophically different than what we're doing here.}
+%\rw{Maybe we can leave this until a reviewer/someone else brings it up.}
 
 \subsection{The Likelihood}
 
@@ -183,7 +184,7 @@ There are a variety of approaches to generating summary trees, which use differe
 Once we have a summary tree, we can obtain a  support value for each node, based on the proportion of trees in the posterior in which that node also appears. 
 This is often referred to as the posterior probability.
 Much as all models have assumptions, all approaches to producing summary trees have benefits and downsides, especially if there is a lot of uncertainty associated with the tree topology.
-We emphasise that the posterior output of Bayesian phylogenetic tree inference is really a distribution of trees and that we should be careful to avoid placing too much faith in any one statistic or summary value from that distribution.
+We emphasise that the posterior output of Bayesian phylogenetic tree inference is really a distribution of trees and that we should be careful to avoid placing too much confidence in any one statistic or summary value from that distribution.
 Instead, it is important to understand the underlying models used to generate your tree, and how these may result in uncertainty given the data you have.
 
 Because the prior distribution can affect the parameters estimated, Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
@@ -485,41 +486,40 @@ In these models, a Dirichlet Process Prior is used to sample both the number of 
 A DPP can be more concentrated (assumes fewer rate categories) or more diffuse (assuming more categories).
 Therefore, without assuming an explicit biological mechanism, they can be compatible with a number of biological scenarios. 
 
-\rw{I wonder about taking up LH's suggestion of discussing the amount of data required and how to test between different clock models?}
+\rw{I wonder about taking up LH's suggestion of discussing the amount of data required and how to test between different clock models?} \aw{I also wonder ... but I don't know much about how much data these methods do require}
 
 \section{Tree models for time-calibrated tree inference}
 
 %Think about adding an explaining about rooting
 
-Tree models are an extremely important and often poorly-understood component of divergence time inference. 
-They \edit{incorporate} \sout{capture} assumptions about the tree generating processes and provide us with an expression for describing the probability of observing a given time-calibrated tree. This allows us to obtain a distribution containing the most likely trees, in terms of tree \sout{shape} \edit{topology} and branch durations, separate to any information we gain from our sequence or character data.
+Tree models \xout{are an extremely important and often poorly-understood component of divergence time inference. 
+They} incorporate assumptions about the tree generating processes and provide us with an expression for describing the probability of observing a given time-calibrated tree. This allows us to obtain a distribution containing the most likely trees, in terms of tree topology and branch durations, separate to any information we gain from our sequence or character data.
 They also provide a framework for incorporating temporal evidence into our analyses --- that is, we use the tree model to propose a plausible range of ages for the nodes in our phylogeny.
 %\sout{It's worth emphasising that any explicit information about \textit{absolute} time is entirely contained within the tree model component of divergence time inference.}
 % This is a subtle point. Perhaps we want to add in something about what this means. Maybe:
-Note that the substitution model provides a rate-based estimate of substitution. The clock model models how rates are distributed across the tree. But only the tree model incorporates fossil age information.
+\xout{Note that} \edit{In contrast to} the substitution \edit{and clock} model\edit{s,} \xout{provides a rate-based estimate of substitution. The clock model models how rates are distributed across the tree. But } only the tree model incorporates fossil age information.
 This information is used calibrate the substitution rate in combination with the substitution and clock model components. %in units of \textit{expected substitutions per site per calendar time unit}
-Most often temporal evidence comes from the age of sampled fossils \cite{Parham2012,Heath2014}, but it can also come from biogeographic evidence \cite{deBaets2016,Landis2016}. \rw{LH says this paragraph could be clearer but I'm actually not sure how to do this...}
+\xout{Most often temporal evidence comes from the age of sampled fossils \cite{Parham2012,Heath2014}, but it can also come from biogeographic evidence \cite{deBaets2016,Landis2016}.} %\rw{LH says this paragraph could be clearer but I'm actually not sure how to do this...}
 
 Approaches to calibration can be placed into two useful categories: \textit{node-dating} and \textit{tip-dating}. 
 These broadly reflect major differences in how age information is combined with or incorporated into the tree model.
 Briefly, node-dating assumes that our tree represents the relationships between living (extant) species only, and we constrain the ages of internal nodes using information from the geological record% to calibrate the substitution rate
 , without directly considering extinct or fossil samples as being part of the tree.
 In contrast, tip-dating directly considers fossil samples as being part of the tree.
-In this section we discuss popular tree models in more detail and describe how they are used in both node- or tip-dating scenarios.
+In this section we \xout{discuss} \edit{provide an overview of} popular tree models \xout{in more detail} and describe how they are used in both node- or tip-dating scenarios.
 
-Previously, we noted that the distinction between the model and the prior can be unclear or inconsistent. It is perhaps most inconsistent when it comes to how different researchers refer to the tree model.
-The tree model is frequently referred to as the tree prior, and in combination with the calibration information, researchers often talk about the resulting prior distribution on node ages. %todo I can cite a couple of my papers here, so as not to create the impression that I'm picking on anyone. 
-\sout{However, some researchers have referred to the component used to calculate the probability of observing a given time tree as the phylodynamic likelihood \cite{Boskova2018}.}
-Some of this inconsistency can be attributed to the history of different models used for phylogenetic dating %across subdisciplines 
-and whether we consider the fossil ages used during inference as data.
+\xout{Previously, we noted that the distinction between the model and the prior can be unclear or inconsistent. It is perhaps most inconsistent when it comes to how different researchers refer to the tree model.}
+The tree model is frequently referred to as the tree prior, and in combination with the calibration information, researchers often talk about the resulting prior distribution on node ages.
+Some of this inconsistency can be attributed to the history of different models used for phylogenetic dating and whether we consider the fossil ages used during inference as data.
 Under the node-dating approach, fossil sampling times are used to constrain the age of a node.
-In this framework, they are not data in the sense that \sout{sequence} \edit{morphological character} data are --- the generating process is not explicitly modeled, but instead, the data are used to bound the age of a node.
-As we move towards more mechanistic approaches to dating that, for example, model the process of fossil recovery (described below), it becomes clear that the fossil ages are actually data, \edit{in addition to  morphological characters}.
-The terms process- and prior-based have also been used to distinguish between approaches that explicitly model the  process that generated the temporal evidence used during inference and those that do not \cite{Landis2016}. 
+In this framework, they are not data in the sense that morphological character data are --- the generating process is not explicitly modeled, but instead, the data are used to bound the age of a node.
+\xout{As we move towards more mechanistic approaches to dating that, for example,}
+\edit{Alternatively, if we} model the process of fossil recovery \xout{(described below)} \edit{explicitly}, it becomes clear that the fossil ages are actually data, in addition to  morphological characters.
+The terms process- and prior-based have also been used to distinguish between approaches that explicitly model the  process that generated the temporal evidence used \xout{during inference} \edit{in our analysis} and those that do not \cite{Landis2016}. 
 Here, we use the term tree model to refer to all the models that underlie these different approaches.
-This term avoids lending to the largely false impression that we can overrule the signal that comes from the tree model given we have sufficient character data. 
-It also underscores the existence of a large and important family of models used in Bayesian divergence time inference.
-Many studies have shown that the tree model and/or the calibration information combined with the tree model have a major impact on Bayesian estimates of node ages (e.g., \cite{Ho2009,Warnock2011,OReilly2015,matzke2016,Matschiner2017}).
+This \xout{term avoids lending to the largely false impression that we can overrule the signal that comes from the tree model given we have sufficient character data. 
+It also} underscores the existence of a large and important family of models used in Bayesian divergence time inference.
+\xout{Many studies have shown that} The tree model and/or the calibration information combined with the tree model have a major impact on Bayesian estimates of node ages \edit{using both node- and tip-dating} (e.g., \cite{Ho2009,Warnock2011,OReilly2015,matzke2016,Matschiner2017}).
 
 \subsubsection{Models of speciation, extinction and sampling}
 
@@ -529,9 +529,9 @@ An advantage of process-based tree models is that they can provide a better desc
 %This term is more commonly applied in the context of epidemiology but can also be applied to macroevolution, where the model typically includes the speciation (birth) and extinction (death) processes.
 The most widely used tree models in macroevolution are birth-death process models, which refers to a huge family of models, at the heart of which are the speciation and extinction processes. 
 
-The simplest \sout{birth-death} model assumes speciation is constant over time, \edit{that we have no extinction,} and that we sample a representative of every individual lineage \cite{Yule1925}.
+The simplest model assumes speciation is constant over time, that we have no extinction, and that we sample a representative of every individual lineage \cite{Yule1925}.
 This is termed a pure-birth model.
-\edit{The most straightforward extension incorporates  extinction \cite{Kendall1948}.}
+The most straightforward extension incorporates  extinction \cite{Kendall1948}.
 Restrictive assumptions such as no extinction or constant rates of speciation may be reasonable in small and recent clades, but are likely not very reasonable over long time intervals and or large groups.
 In reality, we additionally almost never reach complete species sampling.
 Some of the most important model developments in this area have therefore been to relax the assumption of complete sampling, both at the present and in the past.
@@ -543,12 +543,11 @@ Tree models capture the underlying processes (speciation, extinction and samplin
 For example, if we only sample living species, but assume both speciation and extinction have occurred, we need to use the expression for the probably of observing our tree, given we only sample species at the present and none in the past \cite{Thompson1975,Gernhard2008, Stadler2009}.  Similarly, if we only sample some subset and not all living species, we need to take this into account using the expression for a model that incorporates incomplete extant species sampling \cite{Yang1997,Stadler2009}.
 Figure \ref{fig:birth-death} shows examples of the complete versus reconstructed tree for different birth-death process models.
 
-In grappling with the details of some of these models it can be useful to think of these models as being nested and the simpler models as being special cases of more complex variants.
-For example, a birth-death model that does not incorporate extant species sampling, is simply a special case of a model that does incorporate this process, in which we assume extant sampling is complete. 
+\xout{In grappling with the details of some of these models it can be useful to think of these models as being nested and the simpler models as being special cases of more complex variants.
+For example, a birth-death model that does not incorporate extant species sampling, is simply a special case of a model that does incorporate this process, in which we assume extant sampling is complete. }
 %Similarly, birth-death models that exclude the fossil recovery process, is simply a special cases of the FBD process, in which we assume the fossil recovery rate is zero. 
 
-\rw{I haven't shown any graphical models for these; I'm thinking this might not be needed here?} \aw{This is something I've waffled on myself - I wouldn't mind showing a graphical model in the morphological models section to illustrate which parameters and assumptions are typically treated as fixed and which are often treated as stochastic. If we're going to go down the path of showing graphical models, I think we need to show more than just one to reinforce their nature and utility, since they are often not a construct used heavily in paleo.}
-\rw{Maybe wait and see what feedback we get? I think a separate paper on this topic could be in order.}
+%\rw{I haven't shown any graphical models for these; I'm thinking this might not be needed here?} \aw{This is something I've waffled on myself - I wouldn't mind showing a graphical model in the morphological models section to illustrate which parameters and assumptions are typically treated as fixed and which are often treated as stochastic. If we're going to go down the path of showing graphical models, I think we need to show more than just one to reinforce their nature and utility, since they are often not a construct used heavily in paleo.} \rw{Maybe wait and see what feedback we get? I think a separate paper on this topic could be in order.}
 
 \begin{boxedtext}{Maximum Likelihood and Bayesian Esitmation}
 
@@ -566,49 +565,48 @@ While there is no reason models such as the FBD cannot be estimated using maximu
 The assumptions made by different tree models are important because they can result in very different distributions of plausible trees.
 Different combinations of the speciation, extinction and sampling parameters give rise on average to different tree shapes, which determine the most probable waiting times between ancestor and descendent nodes 
 in the reconstructed tree.
-Let us consider the impact on a reconstructed tree representing the relationships among a set of living individuals (i.e. the tree includes no extinct samples). 
-If we have low extinction relative to speciation and complete sampling at the present, the tree is more likely to have shorter internal \edit{non-terminal} branches and more evenly distributed speciation events.
+\xout{Let us} \edit{For example,} consider the impact on a reconstructed tree representing the relationships among a set of living individuals (i.e. the tree includes no extinct samples). 
+If we have low extinction relative to speciation and complete sampling at the present, the tree is more likely to have shorter internal non-terminal branches and more evenly distributed speciation events.
 In contrast, if we have high extinction relative to speciation, the reconstructed tree is more likely to have longer internal branches and on average older node ages. 
 This is because extinct species are absent, so more speciation events are missing from the reconstructed tree, and there is a higher chance we have to go further back in time to find the speciation event linking any of our extant samples.
-Relaxing the assumption of complete species sampling at the present further increases the chances of having longer internal branches and older node ages, for the same reason that we are more likely to be missing speciation events.
+\xout{Relaxing the assumption of complete species sampling at the present further increases the chances of having longer internal branches and older node ages, for the same reason that we are more likely to be missing speciation events.}
 
 Note that we do not have to fix the speciation, extinction and sampling parameters. 
-With the exception of extant species sampling, these values are rarely known very precisely. 
-However, trees constructed from sequence or character data are informative about the underlying diversification and sampling processes that gave rise to our data.
+\xout{With the exception of extant species sampling, these values are rarely known very precisely. 
+However, trees constructed from sequence or character data are informative about the underlying diversification and sampling processes that gave rise to our data.}
 Since different parameter combinations result in distinct distributions of trees and not all combinations are equally likely to result in the same tree shape, phylogenetic data actually allows us to estimate the speciation and extinction rates if these parameters are explicitly part of the tree model. 
-We typically use priors to constrain these parameters, and these can be vague or informative, depending on whether we have some prior information available about these values from elsewhere.
+We typically use priors to constrain these parameter \edit{values} \xout{and these can be vague or informative, depending on whether we have some prior information available about these values from elsewhere.}
 
-%\subsubsection{Node dating}
-The tree model describes the processes that generated our tree but does not directly provide information about absolute time %(unless the speciation and extinction rates are known exactly)
---- this typically has to come from elsewhere.
-In the node-dating scenario, the tree represents the relationships between living samples and we tend to use a tree model that includes extant species sampling only, excluding the process of fossil recovery.
+\xout{The tree model describes the processes that generated our tree but does not directly provide information about absolute time 
+--- this typically has to come from elsewhere.}
+In the node-dating scenario, the tree represents the relationships between living samples and we \xout{tend to} \edit{typically} use a tree model that includes extant species sampling only, excluding the process of fossil recovery.
 Temporal information from the fossil record is instead incorporated through the use of \textit{node calibrations}. 
 For one or more internal nodes in our phylogeny we may have information about the age of the speciation event based on fossil or other geological evidence.
 For example, for a given pair of lineages, the age of the first appearance of either one of these lineages represents a minimum (i.e. younger) bound for the age of the node separating them.
 We can represent the uncertainty in the age of this node using a probability distribution. %LH: would it be an idea to discuss what are the common prob distributions considered (and why)?
 This information is combined with the tree model to produce a distribution of trees that have branch lengths in units of absolute time.
-Although node dating has been widely used in divergence time estimation, especially in molecular dating studies, it is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery.
-Node-dating approaches do not model the process of fossil recovery that gave rise to the fossil evidence used to constrain the timescale.
+\xout{Although node dating has been widely used in divergence time estimation, especially in molecular dating studies, it } \edit{This approach} is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery, \edit{since it does consider}
+\xout{Node-dating approaches do not model} the process \xout{of fossil recovery} that gave rise to the \edit{data (i.e. the fossil sampling times)}. \xout{fossil evidence used to constrain the timescale}.
 This leads to technical challenges combining node calibrations with the tree model and in interpreting the resulting distribution on node ages \cite{Heled2012,Warnock2015}.
-Another issue with this approach is that it requires assigning a fossil age to a fixed node in the extant species tree, ignoring the potential for phylogenetic uncertainty in the placement of the fossil species.
-\edit{The challenges of selecting different prior distributions and the problems associated with node dating have been described in detail elsewhere?}
+\xout{Another issue with this approach is that} It \edit{also} requires assigning a fossil age to a fixed node in the extant species tree, ignoring the potential for phylogenetic uncertainty in the placement of the fossil species.
+\xout{The challenges of selecting different prior distributions and the problems associated with node dating have been described in detail elsewhere?}
 
 In tip-dating we consider extinct samples explicitly as being part of the tree and the temporal evidence used to constrain the age of the tree comes from the age of the extinct tips \cite{Ronquist2012a}.
-This approach was initially proposed for a scenario in which we have phylogenetic data available for a set of fossils (typically morphological) that overlaps with the data available for living species (typically morphological and molecular). %LH: what if the morphological data is highly non informative, or sparse for combining fossil and extant species? 
+\xout{This approach was initially proposed for a scenario in which we have phylogenetic data available for a set of fossils (typically morphological) that overlaps with the data available for living species (typically morphological and molecular). %LH: what if the morphological data is highly non informative, or sparse for combining fossil and extant species? 
 It has the advantage that we can recover the position of fossils along with  living species and the phylogenetic uncertainty associated with the placement of fossils used for calibration will be reflected in the uncertainty of estimated node ages. 
 For this reason, tip-dating is sometimes referred to as \textit{total-evidence} dating --- although it will always be possible to include additional sources of evidence!
-This approach can also be applied to groups of extinct species, meaning we have no extant representatives, and for which we only have morphological character data available.
+This approach can also be applied to groups of extinct species, meaning we have no extant representatives, and for which we only have morphological character data available.}
 
 To include fossil samples as part of the tree, we need to account for sampling through time and ideally we want to use a tree model that incorporates the process of fossil recovery.
-The possibility to incorporate extinct species sampling came much later in the history of birth-death models used for tree inference in macroevolution \cite{Stadler2010}.
+\xout{The possibility to incorporate extinct species sampling came much later in the history of birth-death models used for tree inference in macroevolution \cite{Stadler2010}.
 One technical issue is that when we think of trees used to represent relationships among fossil species in palaeontology, we usually think of each species as representing a separate tip in the phylogeny.
 However, this does not match a continuous model of fossil recovery particularly well.
-In the context of birth-death models, what this would mean is that at every sampling event the lineage was terminated and therefore left no descendants.
+In the context of birth-death models, what this would mean is that at every sampling event the lineage was terminated and therefore left no descendants.}
 The \textit{fossilized birth-death} (FBD) \textit{process} is an extension of the models described above that incorporates the fossil recovery process and provides an expression for the probability of observing a tree with samples recovered along internal branches \cite{Stadler2010,Heath2014,Gavryushkina2014}.
 Extinct samples can either occur on terminal branches or along branches leading to other sampled descendants, referred to as \textit{sampled ancestors}.
-Similarly to tree shape, both the distribution of fossil sampling times and the proportion of extinct samples that are sampled ancestors are linked to the speciation, extinction and sampling parameters \cite{Gavryushkina2014}. 
+\xout{Similarly to tree shape, both the distribution of fossil sampling times and the proportion of extinct samples that are sampled ancestors are linked to the speciation, extinction and sampling parameters \cite{Gavryushkina2014}.}
 
-A major advantage of explicitly modelling the fossil recovery process is that it creates the potential to incorporate much more evidence into divergence time estimation, in contrast to alternative models used to date trees.
+\xout{A major advantage of explicitly modelling the fossil recovery process is that it creates the potential to incorporate much more evidence into divergence time estimation, in contrast to alternative models used to date trees.
 For instance, we now have the possibility of including extinct samples with or without character data.
 If sequence or character data are available for an extinct sample we can also recover its topological position \cite{Zhang2016} and even assess the probability that it was a sampled ancestor \cite{Gavryushkina2016}.
 However, all known dated samples are valuable for divergence time inference using the FBD model, even if they are not associated with any character data, because the distribution of fossil sampling times is informative about the underlying diversification and sampling parameters.
@@ -618,7 +616,7 @@ An analysis under this framework could therefore combine extant species associat
 %In some cases the phylogenetic affinity of a fossil could be entirely unknown but it can still be included.
 Samples can include stem group fossils, which expands the history of the group that can be dated during inference.
 This is in contrast to node dating, where the tree typically includes extant representatives only, meaning we can only  estimate ages within the crown group. 
-Of course the FBD model can also be applied to groups of species that are entirely extinct, and in this context we also have the opportunity to include samples both with and without character data.
+Of course the FBD model can also be applied to groups of species that are entirely extinct, and in this context we also have the opportunity to include samples both with and without character data.}
 
 When we start considering fossil samples as being part of the tree generating process, it becomes important to consider what each sample in our tree actually represents \cite{Hopkins2018}. 
 In the fossil record, a species will be represented by one or more fossil occurrences.
@@ -627,31 +625,27 @@ Further, the age of each occurrence will be associated with an age range, reflec
 This uncertainty can be accounted for by placing a prior distribution on the age of the fossil, instead of treating the age as a known variable \cite{Drummond2016,BaridoSottani2019a}.
 However, this is distinct from the observed duration of a species over geological time, beginning with the first (oldest) appearance of the species in the fossil record and terminating with the last (youngest) appearance, known as the \textit{stratigraphic range} of a species.
 If only a single occurrence is known then the first and last appearance of that species will be represented by the same sample.
-Of course the true duration of a species, beginning with speciation and ending with extinction, extend beyond these observed time points. 
+\xout{Of course the true duration of a species, beginning with speciation and ending with extinction, extend beyond these observed time points. }
 
-How are these processes reflected by the FBD model?
+\xout{How are these processes reflected by the FBD model?
 The FBD model does not incorporate information about species through time.
-\sout{The model assumes a budding speciation process, in  which each speciation event gives rise to a single descendant species.}
-All birth-death models discussed so far make \sout{this} \edit{the} assumption \edit{that each speciation event give rise to a single new lineage, which is equivalent to a budding speciation process}. 
+All birth-death models discussed so far make the assumption that each speciation event give rise to a single new lineage, which is equivalent to a budding speciation process.
 \edit{However,} at each speciation event the model is agnostic about which of the two descendant branches actually represents the ``new'' species.
 This is perhaps not obvious as we tend to drawn trees as bifurcating structures.
 Further, a potential outcome of the FBD process, as it was originally defined, are trees with multiple samples recovered along internal branches.
-These best correspond to the description of fossil occurrences provided above, in contrast to stratigraphic ranges. 
-To incorporate information about species through time it is better to use the FBD \textit{range} process \cite{Stadler2017}.
-This model is more explicit about how species are defined with respect to the branching process and captures the generation of stratigraphic range data, as opposed to occurrence data.
-Further variations of FBD range model also create the possibility to account for alternative modes of speciation, in addition to budding. %not sure if we want to describe these options in any detail
+These best correspond to the description of fossil occurrences provided above, in contrast to stratigraphic ranges.}
+To incorporate information about species through time it is better to use The FBD \textit{range} process \cite{Stadler2017}.
+\xout{This model is more explicit about how species are defined with respect to the branching process and captures the generation of stratigraphic range data, as opposed to occurrence data.
+Further variations of FBD range model also create the possibility to account for alternative modes of speciation, in addition to budding.} %not sure if we want to describe these options in any detail
 
-One benefit to using a unified model of macroevolution for divergence time estimation is that extensions to the model can be written out and tested.
+\xout{One benefit to using a unified model of macroevolution for divergence time estimation is that extensions to the model can be written out and tested.
 A number of such extensions have been published.
 Perhaps two that are especially important to note relax the assumption of constant speciation, extinction or fossil recovery through time. 
 The FBD \textit{skyline} models (of which there are several) allow rates to vary across time bins, meaning we can recover speciation and extinction rates during different geological intervals \cite{Stadler2013b,Gavryushkina2014}.
 \textit{Multitype} or \textit{multistate} birth-death models allow for rate variation across branches, such that different subclades can be associated with different diversification and sampling parameters \cite{Kuehnert2016,BaridoSottani2018}.
 We can also also relax the assumption of uniform (random) extant species sampling.
 In many empirical trees, especially those that encompass higher taxonomic relationships (e.g. between orders), extant representatives are selected to maximise the diversity, rather than at random. 
-This approach to sampling living species is sometimes known as diversified sampling and has been incorporated into birth-death models, in combination with \cite{Zhang2016} and without \cite{Hoehna2011} extinct species sampling.
-
-%\rw{we could perhaps describe the subtle difference between the FBD models in Tracy versus Sasha's paper. I would say let's leave this.} 
-
+This approach to sampling living species is sometimes known as diversified sampling and has been incorporated into birth-death models, in combination with \cite{Zhang2016} and without \cite{Hoehna2011} extinct species sampling.}
 
 
 \subsubsection{The uniform tree model}
@@ -719,7 +713,7 @@ Instead, we can use this approach to test among biogeographic hypotheses --- not
 So far this approach has be used to date trees of extant species only, however, future extensions could potentially account for the biogeography of extinct and fossil samples.
 In principle we could combine biogeography with models of diversification and fossil recovery. 
 
-\rw{We should something -- maybe even a full section -- on linking different aspects of sub-models. e.g. like the work Will has been doing.}
+\rw{We should something -- maybe even a full section -- on linking different aspects of sub-models. e.g. like the work Will has been doing.} \aw{I agree, but I'm also hesitant to add it in a review, since it isn't published}
 
 \section{Conclusions}
 
