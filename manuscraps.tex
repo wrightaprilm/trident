@@ -1,8 +1,63 @@
+\section{\sout{Incorporating time}}
 
-Because the prior distribution can affect the parameters estimated, Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
-Called Bayes Factors \cite{Xie2011}, these metrics describe the support for one model, and all its associated priors, over another model. 
-These methods weigh the posterior evidence of two models against one another. 
-These methods can be used to compare non-nested or mixture models.
-It is worth noting, however, that the Bayes Factor can only provide evidence in favor of one model.
-It cannot tell a researcher if the model is adequate; that is, capturing important facets of the process of evolution.
-Other methods are available that can be used to assess model adequacy \cite{Brown2009, Brown2014}.
+\rw{Most of the appears in or has been moved to section 3}
+
+\sout{The site model does not tell us anything about absolute time.
+When estimating a tree from character data using a site model, the estimated phylogeny is not scaled to time.
+As discussed above, a branch length on a tree in a Bayesian model is the number of expected substitutions per site.
+This is a rate: the number of substitutions multiplied by the units of time.
+It is an expected rate, because Bayesian and likelihood methods allow for hidden state changes.
+Therefore, the number of expected changes could be larger than how many we observe in the data we collected.
+Ultimately, we want to be able to disentangle this rate and time in order to estimate time since divergence on a tree.
+We need to convert the rate into \textit{expected substitutions per site per calendar unit time}.}
+
+
+\sout{To tease apart rate and time, we either need to know the average substitution rate (this is rarely known outside \edit{the context} of DNA characters for some model organisms, see early demonstrations of difficulties applying a global clock in \cite{gaut1992, MOOERS1994, bromham1996, rambaut1998}) or we need to calibrate the substitution rate using temporal information from elsewhere.
+Temporal information typically comes from  fossil sampling times.
+Alternatively, this info can come from biogeographic data, or from human-recorded data in the case of phylogenetic problems concerning recent timescales.
+This information is then modeled using hierarchical  Bayesian models to estimate time since divergence.
+The model is hierarchical because it links together different sub-models (i.e. the substitution, clock and tree models) (see box).
+There are two key model components required to date a phylogeny: the clock model and the tree model.
+Rate and time are often only semi-identifiable.
+A model is \textit{identifiable} when different values for the parameters generate different probabilities for the observed data.
+On the converse, a model is not identifiable when multiple sets of parameters could generate the same probabilities of the observed data.
+In this case, we may be unable to identify, or distinguish, the true parameter values.
+In practice, this means we need to put strong prior information on the average substitution rate and times. 
+A consequence of this that the results will be very sensitive to these prior choices.
+As a result, it is important for biologists to understand each of the component pieces (the clock and tree models) in order to make good choices in selecting and parameterizing a prior.
+We will begin with the clock model.}
+
+
+
+
+
+\begin{boxedtext}{Summarizing the posterior sample of trees}
+
+\rw{Do we need this info after all?}
+
+Bayesian methods return a sample of phylogenetic trees that are plausible under the model of evolution, and the priors chosen by the researcher. 
+This is a nice property: phylogenetic estimation is known to be prone to error when the assumed model of evolution does not match the process of evolution that generated the data.
+Because we cannot truly know all the evolutionary forces that generated our observed data, it is wise to take into account uncertainty about the tree and branch lengths.
+
+However, most researchers do still have a need to summarize and display trees. 
+Here, we discuss a few common tree summarization strategies.  
+
+\textbf{Maximum clade credibility tree:} In this summary, each tree in the posterior sample is evaluated.
+Each clade on the tree is scored for how often that clade is seen in the posterior sample.
+The tree then receives a score that is the product of the scores of all the clade scores on the tree.
+The tree with the highest score is reported as the summary. 
+
+\textbf{Maximum \textit{a posteriori} tree:} This is the tree with the greatest posterior probability in the sample.
+This value does not only account for relationships. 
+The posterior will average over branch lengths and other facets of the model, as well.
+
+\textbf{Consensus tree:} This tree displays the most common relationships found in the posterior sample. 
+A strict consensus tree displays only the clades found in every tree.
+These are not commonly used as they result in little to no resolution in the tree.
+Semi-strict consensus trees, such as majority-rule, in which clades that appear in more than 50\% of the trees in the sample are included in the summary tree, are more common. 
+This type of summary tree can result in a topology that was not actually sampled in the analysis, but on which all clades are well-supported. 
+Because parsimony remains well-used in morphological phylogenetics, and parsimony trees are summarized by consensus, this family of methods is common in the literature.
+
+
+
+\end{boxedtext}
