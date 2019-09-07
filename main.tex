@@ -77,7 +77,6 @@ An undated phylogeny will typically have branch lengths in units that reflect th
 
 Inferring time calibrated trees is often achieved through jointly estimating the topology and node ages.
 In performing this analysis, researchers usually assume a tripartite model of evolution: one model that describes the accumulation of differences in character data, one that describes the distribution of evolutionary rates across the tree, and a model describing the distribution of speciation events (node ages) across the tree \cite{Thorne1998,Kishino2001,Yang2006,Drummond2006}.
-\edit{These components are commonly referred to as the substitution, clock and tree models, respectively.} 
 This tripartite approach is a product of the history of phylogenetic model development and reflects the way in which researchers have traditionally tried to break down the problem of estimating evolutionary time from phylogenetic character data.
 While the tripartite model may sound complex, it enables researchers to treat each component as a discrete inferential module and provides them with the flexibility to combine different models that best suit their data.
 Understanding the tripartite framework is therefore useful for tracing the history of model development, making informed parameter choices, interpreting your results and diagnosing problems with your analysis.
@@ -263,7 +262,7 @@ This model is a translation of the Jukes-Cantor model \cite{Jukes1969} of sequen
 Therefore, it makes the same assumptions about the generating process: that exchangeabilities are the same among all states, and that all states have equal equilibrium character frequencies.
 This is a fairly restrictive model, but in a Bayesian context, some assumptions can be relaxed, allowing the user to make a variety of assumptions about the evolution of morphological data \cite{Nylander2004, Wright2016}.
 For a more detailed review of these methods, see \cite{Wright2019}. 
-Continuously-valued morphological characters have also been used in phylogenetic \edit{inference} \cite{goloboff2006, parins2017} and divergence time estimation \cite{AlvarezC2019}.
+Continuously-valued morphological characters have also been used in phylogenetic inference \cite{goloboff2006, parins2017} and divergence time estimation \cite{AlvarezC2019}.
 These characters are typically assumed to evolve under processes such as Brownian motion and other models that allow for changes to accumulate continuously along a branch.  
 
 
@@ -272,7 +271,7 @@ most researchers have modeled among-character rate variation (ACRV) as being dis
 A Gamma distribution can be manipulated to take a wide range of shapes.
 This distribution is then discretized into four (or more) categories and the median rate of each category is used as the rate of evolution for that category.
 This allows different sites to evolve according to different evolutionary rates, thereby correcting for different rates \sout{at} \edit{across} sites.
-This practice is common for both molecular and morphological data, though some studies \edit{have} indicate\edit{d that} lognormal-distributed ACRV \sout{is} \edit{may be} more appropriate \edit{for morphology} \cite{wagner2011, Harrison2015}. \edit{Specifically, datasets that contain} \sout{the is because  characters that do not vary are} non-variable or parsimony-uninformative \sout{and therefore} \edit{characters, which} are usually not collected by morphologists. %\rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}\aw{I think  Gamma tends to put more mass in a zero rate category. But I also think you could get basically the same effect by manipulating the parameters of the gamma more - I think a Gamma(2) would give basically the behavior Wagner and Harrison point out.}
+This practice is common for both molecular and morphological data, though some studies have indicated that lognormal-distributed ACRV may be more appropriate or morphology \cite{wagner2011, Harrison2015}. Specifically, datasets that contain non-variable or parsimony-uninformative  characters, which are usually not collected by morphologists. %\rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}\aw{I think  Gamma tends to put more mass in a zero rate category. But I also think you could get basically the same effect by manipulating the parameters of the gamma more - I think a Gamma(2) would give basically the behavior Wagner and Harrison point out.}
 
 
 \section{Clock models}
@@ -281,10 +280,9 @@ The function of the clock model is to describe the way the rate of character cha
 These models can describe different schemes of variation in the rate of evolution across the tree.
 These range from  every branch having the same rate of evolution to every branch having its own rate.
 Each of these models implies specific evolutionary dynamics.
-Below, we \sout{will} review some common \rw{all?!} clock models, which can apply to molecular or morphological data.
+Below, we review some common clock models, which can apply to molecular or morphological data.
 
 \subsubsection{Strict Clock}
-\sout{In the earliest days of divergence time estimation, a strict clock was used}.
 Under the strict (or global) clock model, we assume that the rate of character change is constant across time and that the same rate applies to all branches in the tree \cite{Zuckerkandl1962, Zuckerkandl1965EvolutionaryDivergenceConvergence}.
 This model adds one parameter to the overall model, describing the conversion between the rate of character change  and absolute time.
 
@@ -309,18 +307,18 @@ A Gamma distribution, as seen on Fig. 1, implies some branch rates are very clos
 The idea of rates being independent draws not dependent on the rates of the ancestor may strike some as odd. 
 Much of the literature on clock models is from molecular data and molecular clocks.
 Molecular clocks are influenced by a variety of factors, such as generation times, population sizes, and metabolic rates \cite{bromham1996, gaut1992}.
-\edit{Morphological clocks are potentially impacted by the same variables.} %todo need to find a citation for this
+Morphological clocks are potentially impacted by the same variables. %todo need to find a citation for this
 It would be reasonable, then, to expect that close relatives have similar evolutionary rates if they share these traits.
 
 In autocorrelated rate models, the rate of a descendent branch is drawn from a probability distribution \cite{Aris-Brosou2002} centered on the rate of the ancestor's branch. 
 Different distributions can be assumed to allow the descendent's rate to be more different, or to force it to be more similar. 
-\sout{Identifiability, however, is a problem with these models, requiring the use of strong priors on rate shift locations and size \cite{Rannala2002, Ronquist2012a}.}%Isn't identifiability is a problem with many of these clock models? maybe lets not pick on this one
+
 
 Autocorrelated clock models can also be continuous.
 A continuous autocorrelated clock model assumes that, again, the distribution from which the rate of a descendent is drawn is centered on the rate of evolution in the ancestor.
-But under these models, the variance is typically proportional to the \sout{substitution rate of} the \edit{length of the} branch.
-\sout{A lower rate allows less variation, and a longer branch will have more.}
-More sophisticated assumptions can be made under these continuous relaxed clock models, such as the variance \sout{or mean in rates itself} evolving across the tree \cite{Thorne1998, Kishino2001, Thorne2002, Aris-Brosou2002, Aris-Brosou2003}.
+But under these models, the variance is typically proportional to the the length of the branch.
+
+More sophisticated assumptions can be made under these continuous relaxed clock models, such as the variance evolving across the tree \cite{Thorne1998, Kishino2001, Thorne2002, Aris-Brosou2002, Aris-Brosou2003}.
 
 \subsubsection{Local Clocks}
 
@@ -358,24 +356,24 @@ Therefore, without assuming an explicit biological mechanism, they can be compat
 
 Tree models incorporate assumptions about the tree generating processes and provide us with an expression for describing the probability of observing a given time-calibrated tree (see Fig. \ref{fig:bayes}). This allows us to obtain a distribution containing the most likely trees, in terms of tree topology and branch durations, separate to any information we gain from the sequence or character data.
 They also provide a framework for incorporating temporal evidence into our analyses --- that is, we use the tree model to propose a plausible range of ages for the nodes in our phylogeny.
-\edit{In contrast to} the substitution \edit{and clock} model\edit{s,} only the tree model incorporates age information. %fossil
+In contrast to the substitution and clock models, only the tree model incorporates age information. %fossil
 This information is used calibrate the substitution rate in combination with the substitution and clock model components.
 
 Approaches to calibration can be placed into two useful categories: \textit{node-dating} and \textit{tip-dating}. 
 These broadly reflect major differences in how age information is combined with or incorporated into the tree model.
 Briefly, node-dating assumes that our tree represents the relationships between living (extant) species only, and we constrain the ages of internal nodes using information from the geological record, without directly considering extinct or fossil samples as being part of the tree.
 In contrast, tip-dating directly considers fossil samples as being part of the tree.
-In this section we \edit{provide an overview of} popular tree models and describe how they are used in both node- or tip-dating scenarios.
+In this section we provide an overview of popular tree models and describe how they are used in both node- or tip-dating scenarios.
 
 The tree model is often referred to as the tree prior, and in combination with the calibration information, researchers often talk about the resulting prior distribution on node ages.
-Some of the inconsistency \edit{in terminology} can be attributed to the history of different models used for phylogenetic dating and whether we consider age information used during inference \edit{(e.g. fossil sampling times)} as data.
+Some of the inconsistency in terminology can be attributed to the history of different models used for phylogenetic dating and whether we consider age information used during inference (e.g. fossil sampling times) as data.
 Under the node-dating approach, fossil sampling times are used to constrain the age of a node.
 In this framework, they are not data in the sense that morphological character data are --- the generating process is not explicitly modeled, but instead, the data are used to bound the age of a node.
-\edit{Alternatively, if we} model the process of fossil recovery \edit{explicitly}, it becomes clear that the fossil ages are actually data, in addition to the morphological characters.
-The terms process- and prior-based have also been used to distinguish between approaches that explicitly model the  process that generated the temporal evidence used \edit{in our analysis} and those that do not \cite{Landis2016}. 
+Alternatively, if we model the process of fossil recovery explicitly, it becomes clear that the fossil ages are actually data, in addition to the morphological characters.
+The terms process- and prior-based have also been used to distinguish between approaches that explicitly model the  process that generated the temporal evidence used in our analysis and those that do not \cite{Landis2016}. 
 Here, we use the term tree model to refer to all the models that underlie these different approaches.
 This underscores the existence of a large and important family of models used in Bayesian divergence time inference.
-The tree model and/or the calibration information combined with the tree model can have a major impact on Bayesian estimates of node ages \edit{using both node- and tip-dating} (e.g., \cite{Ho2009,Warnock2011,OReilly2015,matzke2016,Matschiner2017}).
+The tree model and/or the calibration information combined with the tree model can have a major impact on Bayesian estimates of node ages using both node- and tip-dating (e.g., \cite{Ho2009,Warnock2011,OReilly2015,matzke2016,Matschiner2017}).
 
 \subsubsection{Models of speciation, extinction and sampling}
 
@@ -400,24 +398,24 @@ Figure \ref{fig:birth-death} shows examples of the complete versus reconstructed
 The assumptions made by different tree models are important because they can result in very different distributions of plausible trees.
 Different combinations of the speciation, extinction and sampling parameters give rise on average to different tree shapes, which determine the most probable waiting times between ancestor and descendent nodes 
 in the reconstructed tree.
-\edit{For example,} a reconstructed tree representing the relationships among a set of living individuals (i.e. the tree includes no extinct samples),  
-\sout{If we have low extinction relative to speciation and complete sampling at the present, the tree} is more likely to have shorter internal non-terminal branches and more evenly distributed speciation events \edit{if extinction is low relative to speciation}.
-\sout{In contrast,} \edit{Conversely,} \sout{if we have high extinction relative to speciation,} the reconstructed tree is more likely to have longer internal branches and on average older node ages \edit{if extinction is high}.
-\sout{This is because extinct species are absent, so} More speciation events are missing from the reconstructed tree \edit{because extinct species are absent} and there is a higher chance we have to go further back in time to find the speciation event linking any of our extant samples.
+For example, a reconstructed tree representing the relationships among a set of living individuals (i.e. the tree includes no extinct samples),  
+ is more likely to have shorter internal non-terminal branches and more evenly distributed speciation events if extinction is low relative to speciation.
+Conversely, the reconstructed tree is more likely to have longer internal branches and on average older node ages if extinction is high.
+More speciation events are missing from the reconstructed tree because extinct species are absent and there is a higher chance we have to go further back in time to find the speciation event linking any of our extant samples.
 
 Note that we do not have to fix the speciation, extinction and sampling parameters. 
-\edit{Indeed,} since different parameter combinations result in distinct distributions of trees and not all combinations are equally likely to result in the same tree shape, phylogenetic data \sout{actually} allows us to estimate \sout{the speciation and extinction rates if} these parameters \edit{if they} are explicitly part of the tree model. 
+Indeed, since different parameter combinations result in distinct distributions of trees and not all combinations are equally likely to result in the same tree shape, phylogenetic data  allows us to estimate these parameters if they are explicitly part of the tree model. 
 We typically use priors to constrain these parameters.
 
-In the node-dating scenario, the tree represents the relationships between living samples and we \edit{typically} use a tree model that includes extant species sampling only, excluding the process of fossil recovery.
+In the node-dating scenario, the tree represents the relationships between living samples and we typically use a tree model that includes extant species sampling only, excluding the process of fossil recovery.
 Temporal information from the fossil record is instead incorporated through the use of \textit{node calibrations}. 
 For one or more internal nodes in our phylogeny we may have information about the age of the speciation event based on fossil or other geological evidence.
 For example, for a given pair of lineages, the age of the first appearance of either one of these lineages represents a minimum (i.e. younger) bound for the age of the node separating them \cite{Parham2012}.
 We can represent the uncertainty in the age of this node using a probability distribution. %LH: would it be an idea to discuss what are the common prob distributions considered (and why)?
 This information is combined with the tree model to produce a distribution of trees that have branch lengths in units of absolute time.
-\edit{This approach} is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery, \edit{since it does consider the process} that gave rise to the \edit{data (i.e. the fossil sampling times)}.
+This approach is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery, since it does consider the process that gave rise to the data (i.e. the fossil sampling times).
 This leads to technical challenges combining node calibrations with the tree model and in interpreting the resulting distribution on node ages \cite{Heled2012,Warnock2015}.
-It \edit{also} requires assigning a fossil age to a fixed node in the extant species tree, ignoring the potential for phylogenetic uncertainty in the placement of the fossil species.
+It also requires assigning a fossil age to a fixed node in the extant species tree, ignoring the potential for phylogenetic uncertainty in the placement of the fossil species.
 
 In tip-dating we consider extinct samples explicitly as being part of the tree and the temporal evidence used to constrain the age of the tree comes from the age of the extinct tips \cite{Ronquist2012a}.
 To include fossil samples as part of the tree, we need to account for sampling through time and ideally we want to use a tree model that incorporates the process of fossil recovery.
@@ -430,9 +428,8 @@ An occurrence could represent a single specimen or multiple specimens from the s
 Further, the age of each occurrence will be associated with an age range, reflecting imprecision in dating techniques, which can be referred to as the \textit{stratigraphic age} of an occurrence.
 This uncertainty can be accounted for by placing a prior distribution on the age of the fossil, instead of treating the age as a known variable \cite{Drummond2016,BaridoSottani2019a}.
 However, this is distinct from the observed duration of a species over geological time, beginning with the first (oldest) appearance of the species in the fossil record and terminating with the last (youngest) appearance, known as the \textit{stratigraphic range} of a species.
-\sout{If only a single occurrence is known then the first and last appearance of that species will be represented by the same sample.}
 The FBD \textit{range} process is more appropriate for incorporating information about species through time \cite{Stadler2017}.
-\edit{Birth-death process models have been extended in many ways, and of particular relevance to paleobiology, are models that relax the assumption of uniform diversification or species sampling \cite{Hoehna2011,Stadler2013b,Gavryushkina2014,Zhang2016,Kuehnert2016,BaridoSottani2018}.}
+Birth-death process models have been extended in many ways, and of particular relevance to paleobiology, are models that relax the assumption of uniform diversification or species sampling \cite{Hoehna2011,Stadler2013b,Gavryushkina2014,Zhang2016,Kuehnert2016,BaridoSottani2018}.
 
 \subsubsection{The uniform tree model}
 
@@ -531,8 +528,6 @@ In this case, a model that allows asymmetrical rates of change \cite{Ronquist200
  For example, many changes are likely to be observed from a common character state to other states.
 Previously supported as important in estimating phylogenetic trees from discrete data \cite{Wright2016}, character change asymmetry has recently been shown to affect divergence time estimation, as well \cite{Klopfstein2019}. 
 If a researcher believes this to be the correct model for their data, it can be substituted for a traditional Mk model, without necessarily needing to alter the clock or tree models. 
-\rw{Are we talking about two different things in this paragraph: the modularity of the tripartite framework and the use of priors to manipulate parameters?}
-\aw{I think we're talking about one? I was going to talk about asymmetry, then move on to the more complex stuff}
 
 
 We can also manipulate the relationship between independent model parameters within a model through the use of priors. 
@@ -543,7 +538,7 @@ By default, model parameters are treated as independent.
 Much as an in autocorrelated clock model, the rate of diversification in a time interval could be parameterized according to the rate of diversification of the previous time interval.
 In effect, this allows for distinct time intervals to have semi-independent model parameters.
 If, however, if we have reason to believe that model parameters are linked, we can apply similar logic to specify this expectation.
-We may have reason to believe that rates diversification and linked to the rate of fossil sampling, for instance.
+We may have reason to believe that rates diversification are linked to the rate of fossil sampling, for instance.
 We could, then, specify a prior on sampling rate that allows for this linkage.
 
 However, we might very well believe that parameters in \textit{different} sub-components of the model are linked. 
@@ -740,14 +735,11 @@ The second column shows the tree that contains sampled lineages only (i.e. the r
 The third column shows the parameters and the name commonly applied to model used to described the probability of observing the reconstructed tree shown in column two given we assume the generating processes shown in column one.
 In all cases we assume constant speciation, extinction and fossil recovery, and uniform extant species sampling.
 Trees and fossils were simulated and plotted using the R packages \texttt{TreeSim} \cite{Stadler2011} and \texttt{FossilSim} \cite{BaridoSottani2019b}.
-\rw{Do we want to try including the FBD range model in line 5? Or is there enough going on here? How about a different figure for the FBD range model?}
-\rw{Font used for model names probably should be larger?}
-\aw{I think more models might force us to shrink down in a problematic way. I guess my other question would be for that - how well is the implementation working? If it's working well, I think there's a stronger claim on adding it}
+
 \clearpage
 
 \begin{boxedtext}{Maximum Likelihood and Bayesian Estimation}
 
-\rw{Combine with other info about likelihood, bayesian etc?}
 
 As discussed in the section `The Likelihood', the probability of the data is calculated given a model. 
 In maximum likelihood estimation, models are proposed, and the likelihood of the data is calculated given each of those models.
