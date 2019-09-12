@@ -154,6 +154,7 @@ The variance of the posterior distribution for a given parameter reflects the un
 If the variance in our posterior distribution is relatively high this reflects lots of uncertainty in our parameter estimate.
 Conversely, if the variance is relatively low, this reflects low uncertainty in our estimate.
 Note that low uncertainty does not necessarily mean a value is true, just that there is high support for it given the data and model.
+\edit{Similarly, high variance or uncertainty in the posterior does not necessarily mean that the model is incorrect or that the analysis bad. It simply means that there is limited information in our data.} 
 It is also possible to have more than one peak in your posterior sample.
 This indicates that multiple solutions are feasible given the model and the data.
 
@@ -266,18 +267,18 @@ Continuously-valued morphological characters have also been used in phylogenetic
 These characters are typically assumed to evolve under processes such as Brownian motion and other models that allow for changes to accumulate continuously along a branch.  
 
 
-Discrete models are often adapted to take into account that characters (nucleotide or morphological) will evolve at different rates. Following \sout{a landmark study by} Yang \cite{Yang1994a}, %RW: I guess we mention many landmark studies
+Discrete models are often adapted to take into account that characters (nucleotide or morphological) will evolve at different rates. Following Yang \cite{Yang1994a}, 
 most researchers have modeled among-character rate variation (ACRV) as being distributed according to a Gamma distribution.
 A Gamma distribution can be manipulated to take a wide range of shapes.
 This distribution is then discretized into four (or more) categories and the median rate of each category is used as the rate of evolution for that category.
-This allows different sites to evolve according to different evolutionary rates, thereby correcting for different rates \sout{at} \edit{across} sites.
+This allows different sites to evolve according to different evolutionary rates, thereby correcting for different rates across sites.
 This practice is common for both molecular and morphological data, though some studies have indicated that lognormal-distributed ACRV may be more appropriate or morphology \cite{wagner2011, Harrison2015}. Specifically, datasets that contain non-variable or parsimony-uninformative  characters, which are usually not collected by morphologists. %\rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}\aw{I think  Gamma tends to put more mass in a zero rate category. But I also think you could get basically the same effect by manipulating the parameters of the gamma more - I think a Gamma(2) would give basically the behavior Wagner and Harrison point out.}
 
 
 \section{Clock models}
 Both the clock and tree models are required to tease apart rate, and time and to transform branches in units of time.
 The function of the clock model is to describe the way the rate of character change varies, or does not vary, across the tree.
-These models can describe different schemes of variation in the rate of evolution across the tree.
+Individual models make different assumptions about how rate variation is distributed among branches.
 These range from  every branch having the same rate of evolution to every branch having its own rate.
 Each of these models implies specific evolutionary dynamics.
 Below, we review some common clock models, which can apply to molecular or morphological data.
@@ -498,11 +499,11 @@ In principle we could even combine models of biogeographic processes with models
 
 \section{Expanding the potential of the tripartite model within the Bayesian framework}
 
-Bayesian priors incorporate our pre-existing knowledge about parameter values (see Box).
+Bayesian priors incorporate our pre-existing knowledge about parameter values. %(see Box)
 We tend to think about the role of priors as being restricted to  constraining the range of possible values a given parameter can take, e.g. the clock rate or speciation rate, or to express which values are most probable based on what we already known.
 However, we can use priors to manipulate the parameter space in much more sophisticated ways than we are currently used to doing.
 We can expand the range of assumptions we are able to make about the underlying biological processes and take advantage of Bayesian approaches to model testing.
-The development of more flexible Bayesian software, such as \textsc{RevBayes} and BEAST2, make complex inference much more accessible to everyday users.
+The development of more flexible Bayesian software, such as \textsc{RevBayes} \citep{Hoehna2014b, Hoehna2016b} and BEAST2 \citep{BEAST2}, make complex inference much more accessible to everyday users.
 Here, we provide examples, ranging from simple to complex.
 
 %\subsection{Parameter transformation}
@@ -516,7 +517,8 @@ $$\lambda = \frac{d}{(1-r)}, \quad \mu = \frac{rd}{(1 - r)}.$$
 
 Although in principle we can recover diversification and turnover from estimates of speciation and extinction without reparameterizing the model, this would give us less control over our parameters of interest. 
 While this is a relatively straightforward example, this illustrates how parameters that are not explicitly part of the model can still be used to inform our analysis. 
-For instance, if other biological or environmental variables can be linked to model parameters via transformation, we have the potential to take advantage of this additional data.
+For instance, if other biological or environmental variables %\edit{such as sea level}
+can be linked to model parameters via transformation, we have the potential to take advantage of this additional data.
 
 A tripartite model enables nearly endless combinations of substitution, clock, and tree models to be assembled into a complete model.
 For example, in molecular genetics, partitioning by gene and applying an appropriate model of sequence evolution to each gene, is strongly supported as being important to inferring a correct phylogeny \cite{Brandley2005}.
@@ -530,24 +532,25 @@ Previously supported as important in estimating phylogenetic trees from discrete
 If a researcher believes this to be the correct model for their data, it can be substituted for a traditional Mk model, without necessarily needing to alter the clock or tree models. 
 
 
-We can also manipulate the relationship between independent model parameters within a model through the use of priors. 
-This can come in different forms.
-For example, we may want to link different parameters of the tree model.
-The FBD skyline model incorporates piece-wise constant variation in the speciation, extinction and fossil recovery rates.
-By default, model parameters are treated as independent. 
-Much as an in autocorrelated clock model, the rate of diversification in a time interval could be parameterized according to the rate of diversification of the previous time interval.
+We can also manipulate the relationship between independent %model 
+parameters within a model through the use of priors.
+%This can come in different forms.
+For example, we \sout{may want to} \edit{can} link different parameters of the tree model \edit{in different ways}.
+The FBD skyline model can incorporate \sout{piece-wise constant} variation in the speciation, extinction and fossil recovery rates \edit{over time} \cite{Gavryushkina2014,Zhang2016}.
+By default, model parameters are treated as independent.
+\edit{However, our prior assumption may be that parameters in adjacent time intervals, such diversification rates, are more likely to be similar.}
+\edit{To incorporate this expectation,} the rate of diversification in a time interval could be parameterized according to the rate of diversification in the previous time interval, \edit{much like the relationship between descendant branches under} the autocorrelated clock model. %RW: sentence restructured
 In effect, this allows for distinct time intervals to have semi-independent model parameters.
-If, however, if we have reason to believe that model parameters are linked, we can apply similar logic to specify this expectation.
-We may have reason to believe that rates diversification are linked to the rate of fossil sampling, for instance.
-We could, then, specify a prior on sampling rate that allows for this linkage.
+\sout{If, however,} \edit{Alternatively or in addition, if}  we have reason to believe that \edit{different } model parameters are linked, we can \sout{apply a similar logic} \edit{also manipulate the priors} to specify this expectation.
+For instance, we may have reason to believe that rates of diversification are linked to the rate of fossil sampling.
+%We could, then, specify a prior on sampling rate that allows for this linkage.
 
-However, we might very well believe that parameters in \textit{different} sub-components of the model are linked. 
+However, we may very well believe that parameters in \textit{different} sub-components of the model are linked. 
 If we believed the rate of speciation to be related to the rate of character change. 
 This could be achieved by using a prior that specifies a distribution for one parameter, centered on the other. 
-For example, if we thought that periods of high speciation would correspond to period with lots of character change, we could create an FBD skyline model in which the per-interval prior on speciation rate is centered on the average substitution rate in that interval.
+For example, if we thought that periods of high speciation would correspond to period with lots of character change, we could create an FBD skyline model in which the per-interval prior on speciation rate is \sout{centered on} \edit{linked to} the average substitution rate during that interval.
 
 %\subsection{Linking parameters across tripartite models}
-
 
 Within a Bayesian framework, we can propose any model we would like, and use modeling tests to compare competing models, in which parameters are either linked or not.
 Bayesian methods have a suite of well-developed statistical approaches for evaluating the fit of both the model and the priors to the data.
@@ -560,12 +563,11 @@ Other methods, such as posterior predictive model assessment, are available that
 With these methods, it is important to consider what the data are.
 Node calibration methods, for example don't truly incorporate fossils as data.
 Instead, the fossils are used as priors to bound the age of nodes.
-In this case, their placement is part of the model, and methods have been proposed to evaluate these prior with Bayes Factors \cite{Andújar2014}.
+In this case, their placement is part of the model, and methods have been proposed to evaluate these prior with Bayes Factors \cite{Andujar2014}. %\edit{though the statistical incoherence associated with node dating makes it unclear whether this is appropriate}.
 In the case of an FBD tree model, they are data.
-In this case, Bayes Factor model fitting is not evaluating the placement of fossils.
-\aw{I couldn't figure out how to end this paragraph}
+In this case, Bayes Factor model fitting can not be used to evaluate the placement of fossils.
 
-
+\edit{Many of the more complex model and prior options we describe here have yet to be explored using paleobiological data, despite their increasing feasibility.}
 To extend the tripartite model, we must understand how it works under a variety of empirical conditions.
 Much of what we know about both divergence time estimation and phylogenetic analysis come from simulation studies and mathematical modeling.
 While both of these are useful tools, it can be difficult to understand how the behavior of any particular method will stand up to empirical conditions.
@@ -587,15 +589,22 @@ This framework enables nearly endless combinations of assumptions that a researc
 The goal of this review has been to explain some common assumptions, and what they mean. 
 It is by no means exhaustive.
 There are more assumptions that could be made, and modeled by researchers.
-This new tripartite framework can be improved by close collaboration between geologists, organismal experts, and phylogenetic methods specialists. 
+This %new 
+tripartite framework can be improved by close collaboration between geologists, organismal experts, and phylogenetic methods specialists. 
 We hope that in explaining some of these common assumptions, researchers will feel empowered to look at their own data and see where methods can be improved, and to seek collaborations to create a new generation of process-driven methods. The challenge for both empirical researchers and method developers will be to identify important model violations, and to gauge the level of complexity necessary to obtain reliable and meaningful results.
 
 %Beyond this, the neat thing about process-based tree models is that they are (in theory) endlessly extendable, such that we can construct hierarchical relationships linking the diversification and sampling processes to any number of external variables through the use of priors.
 %However, despite exciting opportunities created by using more explicit process-based models, and in particular modeling the process of fossil recovery, the results will inevitably be sensitive to the model assumptions. 
 %In particular, serious model violations will lead to erroneous estimates of divergence times.
 
-\rw{I just thought, I wonder if its worth explaining that we can fix any of the parameters, including a whole component of the tripartite model, such as the time tree, and estimate the parameters of another?} 
-\aw{this might be a good call-out box. This might also be a good thing to put in a graphical models for paleos MS - that we are enabled by graphical models to make any stochastic node into a fixed one}
+%\rw{I just thought, I wonder if its worth explaining that we can fix any of the parameters, including a whole component of the tripartite model, such as the time tree, and estimate the parameters of another?} 
+%\aw{this might be a good call-out box. This might also be a good thing to put in a graphical models for paleos MS - that we are enabled by graphical models to make any stochastic node into a fixed one}
+%RW: yeah, let's just leave this just now.
+
+
+\section{Acknowledgements}
+% David Bapst, Jeremy Brown, Lee Hsiang Liow
+R.C.M.W. was funded by the ETH Z\"urich Postdoctoral Fellowship and Marie Curie Actions for People COFUND programme.
 
 \clearpage
 
@@ -607,7 +616,7 @@ We hope that in explaining some of these common assumptions, researchers will fe
 
 \centering
 
-\includegraphics[height=6cm, width=7.75cm]{figures/undated.pdf} \includegraphics[height=6cm, width=7.75cm]{figures/scaley.pdf}
+\includegraphics[height=6cm, width=7.75cm]{figures/UnscaledTree.pdf} \includegraphics[height=6cm, width=7.75cm]{figures/Scaley.pdf}
 \label{fig:undated}
 
 \caption{\textbf{Undated versus dated phylogenetic inference.}
