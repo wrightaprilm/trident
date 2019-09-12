@@ -154,7 +154,7 @@ The variance of the posterior distribution for a given parameter reflects the un
 If the variance in our posterior distribution is relatively high this reflects lots of uncertainty in our parameter estimate.
 Conversely, if the variance is relatively low, this reflects low uncertainty in our estimate.
 Note that low uncertainty does not necessarily mean a value is true, just that there is high support for it given the data and model.
-\edit{Similarly, high variance or uncertainty in the posterior does not necessarily mean that the model is incorrect or that the analysis bad. It simply means that there is limited information in our data.} 
+Similarly, high variance or uncertainty in the posterior does not necessarily mean that the model is incorrect or that the analysis bad. It simply means that there is limited information in our data.
 It is also possible to have more than one peak in your posterior sample.
 This indicates that multiple solutions are feasible given the model and the data.
 
@@ -510,13 +510,13 @@ Here, we provide examples, ranging from simple to complex.
 
 Depending on our parameters of interest, we can change the way our models are parameterized.
 For example, we may be more interested in diversification ($d$) and turnover ($r$) than speciation ($\lambda$) and extinction ($\mu$).
-If we use a birth-death process tree model, we can not eliminate speciation and extinction from the calculation, but we can reparameterize our analyses, such that we can place priors directly on the diversification and turnover parameters and sample these during MCMC. We can recover the speciation and extinction rates via transformation.
+If we use a birth-death process tree model, we can not eliminate speciation and extinction from the calculation, but we can reparameterize our analyses, such that we can place priors directly on the diversification and turnover parameters and sample these during MCMC. We can recover the speciation and extinction rates via transformation \citep{Heath2014}.
 The relationship between the parameters can be expressed simply as, 
 $$d = \lambda - \mu, \quad r = \frac{\mu}{\lambda} \quad \textrm{and} $$ 
 $$\lambda = \frac{d}{(1-r)}, \quad \mu = \frac{rd}{(1 - r)}.$$
 
 Although in principle we can recover diversification and turnover from estimates of speciation and extinction without reparameterizing the model, this would give us less control over our parameters of interest. 
-While this is a relatively straightforward example, this illustrates how parameters that are not explicitly part of the model can still be used to inform our analysis. 
+While this is a relatively straightforward example, this illustrates how parameters that are not explicitly part of the model can still be used to constrain the underlying model in our analysis. 
 For instance, if other biological or environmental variables %\edit{such as sea level}
 can be linked to model parameters via transformation, we have the potential to take advantage of this additional data.
 
@@ -535,20 +535,20 @@ If a researcher believes this to be the correct model for their data, it can be 
 We can also manipulate the relationship between independent %model 
 parameters within a model through the use of priors.
 %This can come in different forms.
-For example, we \sout{may want to} \edit{can} link different parameters of the tree model \edit{in different ways}.
-The FBD skyline model can incorporate \sout{piece-wise constant} variation in the speciation, extinction and fossil recovery rates \edit{over time} \cite{Gavryushkina2014,Zhang2016}.
+For example, we can link different parameters of the tree model in different ways.
+The FBD skyline model can incorporate variation in the speciation, extinction and fossil recovery rates over time \cite{Gavryushkina2014,Zhang2016}.
 By default, model parameters are treated as independent.
-\edit{However, our prior assumption may be that parameters in adjacent time intervals, such diversification rates, are more likely to be similar.}
-\edit{To incorporate this expectation,} the rate of diversification in a time interval could be parameterized according to the rate of diversification in the previous time interval, \edit{much like the relationship between descendant branches under} the autocorrelated clock model. %RW: sentence restructured
+However, our prior assumption may be that parameters in adjacent time intervals, such as diversification rates, are more likely to be similar.
+To incorporate this expectation, the rate of diversification in a time interval could be parameterized according to the rate of diversification in the previous time interval, much like the relationship between descendant branches under the autocorrelated clock model. %RW: sentence restructured
 In effect, this allows for distinct time intervals to have semi-independent model parameters.
-\sout{If, however,} \edit{Alternatively or in addition, if}  we have reason to believe that \edit{different } model parameters are linked, we can \sout{apply a similar logic} \edit{also manipulate the priors} to specify this expectation.
+Alternatively or in addition, if we have reason to believe that different model parameters are linked, we can also manipulate the priors to specify this expectation.
 For instance, we may have reason to believe that rates of diversification are linked to the rate of fossil sampling.
 %We could, then, specify a prior on sampling rate that allows for this linkage.
 
 However, we may very well believe that parameters in \textit{different} sub-components of the model are linked. 
-If we believed the rate of speciation to be related to the rate of character change. 
-This could be achieved by using a prior that specifies a distribution for one parameter, centered on the other. 
-For example, if we thought that periods of high speciation would correspond to period with lots of character change, we could create an FBD skyline model in which the per-interval prior on speciation rate is \sout{centered on} \edit{linked to} the average substitution rate during that interval.
+If we believed the rate of speciation to be related to the rate of character change,  
+this could be achieved by using a prior that specifies a distribution for one parameter, centered on the other. 
+For example, if we thought that periods of high speciation would correspond to period with lots of character change, we could create an FBD skyline model in which the per-interval prior on speciation rate is linked to the average substitution rate during that interval.
 
 %\subsection{Linking parameters across tripartite models}
 
@@ -561,19 +561,19 @@ It is worth noting, however, that the Bayes Factor can only provide evidence in 
 It cannot tell a researcher if the model is adequate; that is, capturing important facets of the process of evolution.
 Other methods, such as posterior predictive model assessment, are available that can be used to assess model adequacy \cite{Brown2009, Brown2014}.
 With these methods, it is important to consider what the data are.
-Node calibration methods, for example don't truly incorporate fossils as data.
+Node calibration methods, for example do not truly incorporate fossils as data.
 Instead, the fossils are used as priors to bound the age of nodes.
-In this case, their placement is part of the model, and methods have been proposed to evaluate these prior with Bayes Factors \cite{Andujar2014}. %\edit{though the statistical incoherence associated with node dating makes it unclear whether this is appropriate}.
+In this case, their placement is part of the model, and methods have been proposed to evaluate these priors with Bayes Factors \cite{Andujar2014}. %\edit{though the statistical incoherence associated with node dating makes it unclear whether this is appropriate}.
 In the case of an FBD tree model, they are data.
 In this case, Bayes Factor model fitting can not be used to evaluate the placement of fossils.
 
-\edit{Many of the more complex model and prior options we describe here have yet to be explored using paleobiological data, despite their increasing feasibility.}
+Many of the more complex model and prior options we describe here have yet to be explored using paleobiological data, despite their increasing feasibility.
 To extend the tripartite model, we must understand how it works under a variety of empirical conditions.
 Much of what we know about both divergence time estimation and phylogenetic analysis come from simulation studies and mathematical modeling.
 While both of these are useful tools, it can be difficult to understand how the behavior of any particular method will stand up to empirical conditions.
 Limited data sizes, biased missing data, and violations of model assumptions can all lead to unpredictable analytical behavior.
-Therefore, it is critical for researchers empiricists and theoreticians to collaborate to understand the challenges faced by researchers at the forefront of collecting data, and improve our methods to meet them.
-
+Therefore, it is critical for %researchers 
+empiricists and theoreticians to collaborate to understand the challenges faced by researchers at the forefront of collecting data, and improve our methods to meet them.
 
 \section{Conclusions}
 
@@ -603,8 +603,9 @@ We hope that in explaining some of these common assumptions, researchers will fe
 
 
 \section{Acknowledgements}
-% David Bapst, Jeremy Brown, Lee Hsiang Liow
+We thank David Bapst, Jeremy Brown and Lee Hsiang Liow for feedback that helped greatly improve the text.
 R.C.M.W. was funded by the ETH Z\"urich Postdoctoral Fellowship and Marie Curie Actions for People COFUND programme.
+A.M.W. was funded by a grant from the Louisiana Biomedical Research Network, a National Institutes of Health Institutional Development Award.
 
 \clearpage
 
@@ -630,8 +631,10 @@ A tree estimated with no temporal information can be seen in panel A.
 In a time calibrated tree %that has been estimated with divergence dating methods, 
 the branch lengths will be in units of calendar time, often in years or millions of years. %That is, rather than reflecting an expected rate of character changes per character in the matrix, they will reflect time
 Panel B shows the same tree from panel A, but with branches in millions of years.}
+\label{fig:undated}
 
 \end{figure}
+
 \clearpage
 
 \begin{boxedtext}{The likelihood, the prior, and the posterior}
