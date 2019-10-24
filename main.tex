@@ -191,7 +191,7 @@ The clock model describes how the substitution rate varies (or does not) across 
 The tree model describes the process of speciation, extinction, and lineage sampling that generated the tree.
 To tease apart rate and time we either need to know the average substitution rate or we need to calibrate the substitution rate using temporal information from elsewhere.
 For macroevolutionary timescales calibration information typically comes from fossil sampling times or the age of biogeographic events. This information is incorporated into the tree model.
-The tripartite approach to divergence time estimation is a hierarchical Bayesian model, which means it links together different sub-models (i.e. the substitution, clock and tree models) (see Box 2).
+The tripartite approach to divergence time estimation is a hierarchical Bayesian model, which means it links together different sub-models (i.e. the substitution, clock and tree models) (see Box 'Hierarchical Models').
 
 Note that rate and time are often only semi-identifiable, meaning multiple combinations of parameters can potentially generate the same probability of the observed data.
 In this case, we may be unable to identify, or distinguish, the true parameter values.
@@ -264,7 +264,7 @@ A Gamma distribution can be manipulated to take a wide range of shapes.
 This distribution is then discretized into four (or more) categories and the median rate of each category is used as the rate of evolution for that category.
 This allows different sites to evolve according to different evolutionary rates, thereby correcting for different rates across sites.
 This practice is common for both molecular and morphological data, though some studies have indicated that lognormal-distributed ACRV may be more appropriate for morphology \cite{wagner2011, Harrison2015}. %Specifically, datasets that contain non-variable or parsimony-uninformative  characters, which are usually not collected by morphologists. %\rw{Now that I think about it I also don't understand this -- what do we gain from a lognormal distribution that can't be achieved with a gamma distribution?}\aw{I think  Gamma tends to put more mass in a zero rate category. But I also think you could get basically the same effect by manipulating the parameters of the gamma more - I think a Gamma(2) would give basically the behavior Wagner and Harrison point out.}
-In particular, non-variable or parsimony-uninformative  characters are usually not collected by morphologists and the lognormal distribution potentially provides a better fit for datasets that do \edit{not?} include a zero rate category.
+In particular, non-variable or parsimony-uninformative  characters are usually not collected by morphologists and the lognormal distribution potentially provides a better fit for datasets that do not include a zero rate category.
 
 
 \section{Clock models}
