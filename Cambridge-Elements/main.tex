@@ -1,0 +1,170 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A template for CUP Elements article submissions.
+% Developed by Overleaf.
+%
+% Please note that whilst this template provides a 
+% preview of the typeset manuscript for submission, it 
+% will not necessarily be the final publication layout.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{cup-elements}
+
+\usepackage{blindtext}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+%% Use APA style for author-year citation scheme for submission
+\usepackage[natbibapa]{apacite}
+\bibliographystyle{apacite}
+
+%% Use these lines if you're using the IEEE numerical style
+% \bibliographystyle{IEEEtran}
+% \let\citep\cite
+% \let\citet\cite
+
+%% If you wish to load hyperref, please ensure it's loaded after all other packages except cleveref
+% \usepackage{hyperref}
+
+\CUPseries{Cambridge Elements}
+\CUPelements{Elements of Paleontology}
+
+\title{Understanding the tripartite approach to Bayesian divergence time estimation}
+
+%\subtitle{This is a subtitle just for testing purposes}
+
+\author{Rachel C. M. Warnock}
+\affil{Department of Biosystems Science and Engineering, ETH Z\"urich, Basel, Switzerland}
+\affil{Swiss Institute of Bioinformatics (SIB), Switzerland}
+
+\author{April M. Wright}
+\affil{Department of Biological Sciences, Southeastern Louisiana University, Hammond, United States}
+
+\begin{document}
+
+%%%%-----------------------
+\frontmatter  %% DO NOT DELETE
+%%%%-----------------------
+\maketitle
+
+\begin{abstract}
+% \blindtext
+Placing evolutionary events in the context of geological time is a fundamental goal in  paleobiology and macroevolution.
+In this article we describe the tripartite model used for Bayesian estimation of time calibrated phylogenetic trees.
+The model can be readily separated into its component models: the substitution model, the clock model and the tree model.
+We provide an overview of the most widely used models for each component and highlight the advantages of implementing the tripartite model within a Bayesian framework.
+\end{abstract}
+
+\keywords{Bayesian phylogenetics,
+paleobiology,
+species divergence times,
+morphological clock,
+fossil calibration}
+
+\JEL{A12, B34, C56, D78, E90}
+
+\copyrightauthor{Rachel C. M. Warnock, April M. Wright, 2019}
+
+%%%%-----------------------
+\mainmatter  %% DO NOT DELETE
+%%%%-----------------------
+
+\include{text}
+
+\clearpage
+
+\include{boxes}
+
+%\blinddocument 
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=.8\textwidth]{example-image}
+%\caption{An example figure}
+%\addnote{These are the figure notes. These are the figure notes. These are the figure notes.}
+%\addsource{These are the figure sources.}
+%\end{figure}
+
+%\section{This is a very long title to see how it behaves in the table of contents}
+
+%%%%-----------------------
+\appendix  %% DO NOT DELETE
+%%%%-----------------------
+
+\bibliography{refs}
+
+\section*{Acknowledgements}
+We thank David Bapst, Jeremy Brown, Michael Landis and Lee Hsiang Liow for feedback that helped greatly improve the text.
+R.C.M.W. was funded by the ETH Z\"urich Postdoctoral Fellowship and Marie Curie Actions for People COFUND programme.
+A.M.W. was funded by a grant from the Louisiana Biomedical Research Network, a National Institutes of Health Institutional Development Award.
+
+\clearpage
+
+\section*{Figure legends}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[height=6cm, width=7.75cm]{figures/UnscaledTree.pdf} \includegraphics[height=6cm, width=7.75cm]{figures/Scaley.pdf}
+\label{fig:undated}
+\caption{Undated versus dated phylogenetic inference.
+A phylogenetic tree is comprised of \textit{tips} (indicated with circles in panel A), which represent the taxa between which we aim to infer the evolutionary relationships.
+These taxa are connected by \textit{branches}. 
+The branches are connected by \textit{nodes} (indicated with triangles in panel A), which reflect the most recent common ancestor between two given tips. 
+The overall structure of the tree used to represent phylogenetic relationships is referred to as the \textit{topology}.
+In an undated phylogeny branch lengths are typically in units that represent the overall amount of character change.
+A tree estimated with no temporal information can be seen in panel A.
+In a time calibrated tree the branch lengths will be in units of calendar time, often in years or millions of years. 
+Panel B shows the same tree from panel A, but with branches in millions of years, along with stratigraphic ranges (grey boxes).}
+\label{fig:undated}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/bayes-theorem-v2.pdf}
+\caption{A tripartite model for Bayesian divergence time estimation.
+The top panel shows the key ingredients required during inference.
+The data used to generate time calibrated trees: molecular or morphological phylogenetic characters, and age information, typically fossil sampling times.
+The model includes the substitution (site) model, which describes the evolution of characters, the clock model, which describes the distribution of evolutionary rates across the tree, and the tree model, which describes the distribution of speciation events across the tree.
+Bayes theorem is presented in the middle panel. 
+The bottom panel illustrates how everything comes together for the Bayesian estimation of divergence times.
+This figure is based on Fig. 1 in \citep{duPlessis2015}.
+}
+\label{fig:bayes}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/Q.pdf}
+\caption{Phylogenetic $Q$ matrices.
+In this schematic, we have several representations of different types of character change.
+For nucleotide data, we know that we are more likely to see certain types of change, such as two-ringed bases (purines) transitioning to other two-ringed bases, and one-ringed bases transitioning to other one-ringed bases.
+This is represented by thicker arrows connecting these bases.
+On the other hand, for morphological data, character states do not carry common meaning across characters.
+At one character, changing, for example, from a `0' state to a `1' state may be a small change.
+At another, it may mean gaining a complex character.
+Therefore, researchers have largely used the Mk model of Lewis (2001) to model these data.
+The schematic below shows the assumption of equal change probability between states.
+}
+\label{fig:Q}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/Distributions.pdf}
+\caption{A schematic showing different clock models, and what they mean for the distribution of evolutionary rates across the tree. Row one shows an uncorrelated clock, with branch rates drawn from the exponential distribution. Because this clock is uncorrelated, a descendent may have a very different rate of evolution than its ancestor. In the second row, an autocorrelated clock, rates of evolution in the ancestor and descendant are expected to be more similar. The third row shows Dirichlet-distributed rates. This is a biologically agnostic clustering method for assigning branch rates.
+}
+\label{fig:distn}
+\end{figure}
+
+\begin{figure}
+\centering
+%\includegraphics[width=\textwidth]{figures/birth-death-trees-v2.pdf}
+\caption{The complete versus reconstructed trees under birth-death process models.
+The assumptions of four different models are captured in each row.
+The first column shows an example outcome of the joint diversification and sampling processes (i.e. the complete tree), where diamonds represent  extant or fossil samples.
+The second column shows the tree that contains sampled lineages only (i.e. the reconstructed tree). 
+The third column shows the parameters and the name commonly applied to model used to described the probability of observing the reconstructed tree shown in column two given we assume the generating processes shown in column one.
+In all cases we assume constant speciation, extinction and fossil recovery, and uniform extant species sampling.
+Trees and fossils were simulated and plotted using the R packages \texttt{TreeSim} \citep{Stadler2011} and \texttt{FossilSim} \citep{BaridoSottani2019b}.}
+\label{fig:birth-death}
+\end{figure}
+
+\end{document}
