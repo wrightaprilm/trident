@@ -19,7 +19,7 @@ Fig. \ref{fig:undated} provides a recap of the most important features of a phyl
 An undated phylogeny will typically have branch lengths in units that reflect the overall number of molecular or morphological character changes \rev{that have occurred between the two edges of a branch (i.e., between the ancestral node and the younger node represented at the edges of this branch, respectively)}, while a dated tree will \rev{use} units of calendar time, such as years or millions of years.
 
 Inferring time calibrated trees is often achieved \rev{by} jointly estimating the topology and node ages.
-In performing this analysis, researchers usually assume a tripartite model of evolution: one model that describes the accumulation of differences in character data, one that describes the distribution of evolutionary rates across the tree, and a \rev{third} model describing the distribution of speciation events (node ages) across the tree \citep{Thorne1998,Kishino2001,Yang2006,Drummond2006}.
+In performing this analysis, researchers usually assume a tripartite model of evolution: one model that describes the accumulation of differences in character data, \rev{a second} that describes the distribution of evolutionary rates across the tree, and a \rev{third} model describing the distribution of speciation events (node ages) across the tree \citep{Thorne1998,Kishino2001,Yang2006,Drummond2006}.
 This tripartite approach is a product of the history of phylogenetic model development and reflects the way in which researchers have traditionally tried to break down the problem of estimating evolutionary time from phylogenetic character data.
 While the tripartite model may sound complex, it enables researchers to treat each component as a discrete inferential module and provides them with the flexibility to combine different models that best suit their data.
 Understanding the tripartite framework is therefore useful for tracing the history of model development, making informed parameter choices, interpreting your results and diagnosing problems with your analysis.
@@ -28,6 +28,8 @@ We describe the components of the tripartite model in more detail and the proces
 We \rev{then explain} how to perform this analysis \rev{with} Bayesian methods and highlight some of the advantages of using this statistical framework.
 Finally, we discuss how different aspects of the tripartite model can be linked and how this can be used to test hypotheses in paleobiology.
 
+
+\rev{TODO Reviewer 1: One thing I thought might help ?sell? the paper to an phylogenetically unfamiliar audience of paleontologists would be to highlight more empirical case studies mostly or entirely comprised of fossil data (to help point readers to examples on groups having fossil records like the one they know best). That said, I wouldn?t necessarily advocate any additional section(s) be added to compensate--just a thought.}
 
 \section{A brief introduction to Bayesian inference in phylogenetics}
 
@@ -49,7 +51,7 @@ On a practical level, much of the widely-used divergence time estimation softwar
 %\rw{Maybe we can leave this until a reviewer/someone else brings it up.}
 %aw{Yes, I don't think this is crucial. We can say dated and call it good.}
 
-\subsection{The Model Likelihood}
+\subsection{The model likelihood}
 
 We often think of statistical words in colloquial terms.
 For instance, we may think of ``likelihood" in our daily life as an event being likely or unlikely. 
@@ -63,7 +65,7 @@ Bayesian analyses typically sample large numbers of solutions that explain how t
 In the tripartite model for divergence time estimation, all parts of the model (substitution model, clock model and tree model) will be represented in the likelihood, as well as in the prior (Fig. \ref{fig:bayes}).
 
 
-\subsection{The Prior}
+\subsection{The prior}
 
 %\rw{To do: as per DB's suggestion look into Alfaro and Holder's 2006 perspective on priors.}
 
@@ -82,7 +84,7 @@ Sometimes, the distinction between what we call a model and the prior can be dif
 By constraining the values a parameter can take, it is possible to steer estimation towards or away from certain sets of values, without changing what facets of the generating process are being modeled. 
 The priors, therefore, are part of a model, as they can lead to the parameters of that model taking on different values.
 
-\subsection{The Posterior}
+\subsection{The posterior}
 
 The posterior is the outcome of a Bayesian analysis and includes a distribution of plausible \rev{values} for all of the  parameters \rev{specified} in our models, including the \rev{tree} topology and divergence times.
 This component effectively combines the information from the prior with the likelihood. % \rw{DB doesn't think this is a complete enough description of the posterior.} \aw{It seems good to me?}
@@ -98,7 +100,7 @@ Similarly, high variance or uncertainty in the posterior does not necessarily me
 It is also possible to have more than one peak in your posterior sample.
 This indicates that multiple solutions are feasible given the model and the data.
 
-From the posterior distribution of many standard model parameters (e.g. rate parameters) we can construct credible intervals, which are the Bayesian \rev{analog to} confidence intervals.  
+From the posterior distribution of many standard model parameters (e.g., rate parameters) we can construct credible intervals, which are the Bayesian \rev{analog to} confidence intervals.  
 We typically use the 95\% highest posterior density (HDP) interval, which is the spread of posterior values that contains 95\% of the posterior.
 The upper and lower limits of the of 95\% HPD are \rev{an} intuitive way of communicating the uncertainty associated with parameters such as rates or node ages.
 Summarizing a posterior distribution of trees, \rev{however}, is altogether more tricky \citep{heled2013,OReilly2018}.
@@ -108,7 +110,7 @@ This is referred to as the posterior probability.
 
 All approaches to producing summaries of the posterior have benefits and downsides \citep{heled2013}, especially when there is high uncertainty associated with the tree topology \citep{OReilly2018}.
 We emphasise that the posterior of a Bayesian phylogenetic tree inference is really a distribution of trees and associated model parameters. 
-We should be careful to avoid placing too much confidence in any statistic or summary value from that distribution.
+We should be careful to avoid placing too much confidence in any statistic or summary value from that distribution \citep{Warnock2017}.
 Instead, it is important to understand the underlying models used to generate your tree, and how these may result in uncertainty given the data you have.
 
 \section{A tripartite model for divergence time estimation}
@@ -127,7 +129,7 @@ The clock model describes how the substitution rate varies (or does not) across 
 The tree model describes the process of speciation, extinction, and lineage sampling that generated the tree.
 To tease apart rate and time, we either need to know the average substitution rate or we need to calibrate the substitution rate using temporal information from elsewhere.
 For macroevolutionary timescales, calibration information typically comes from fossil sampling times or the age of biogeographic events, information incorporated into the tree model.
-The tripartite approach to divergence time estimation is a hierarchical Bayesian model, which means it links together different sub-models (i.e. the substitution, clock and tree models); see Box `Hierarchical Models'.
+The tripartite approach to divergence time estimation is a hierarchical Bayesian model, which means it links together different sub-models (i.e., the substitution, clock and tree models); see Box `Hierarchical Models'.
 
 Note that rate and time are often semi-identifiable, meaning that multiple combinations of parameters can potentially generate the same probability of the observed data.
 In this case, we may be unable to identify, or distinguish, the true parameter values.
@@ -141,7 +143,7 @@ The first component of the tripartite model is the substitution model.
 The substitution model, sometimes called the site model, describes how phylogenetic characters in the dataset evolve.
 These models are called substitution models because they were initially written to describe nucleotide changes.
 These models describe how character change accumulates over time, leading to the observed phylogenetic data.
-In the context of divergence time estimation, phylogenetic data are typically either molecular or morphological data, \rev{even though analyses that integrate with both types of data have also been conducted \citep{Ronquist2012a,schrago2013,wood2013,Gavryushkina2017}}. 
+In the context of divergence time estimation, phylogenetic data are typically either molecular or morphological data, \rev{although analyses that integrate both types of data have also been conducted \citep{Ronquist2012a,schrago2013,wood2013,Gavryushkina2017}}. 
 While molecular and morphological data have very different properties, as will be discussed below, similar methods have historically been used to infer phylogenies from them.
 
 Most data used in phylogenetic estimation has been discrete data.
@@ -170,7 +172,7 @@ The equilibrium frequencies are also assumed to be equal.
 Therefore, under this model, you are as likely to observe a change that adds a second carbon ring to a pyrimidine as you are to observe changes from pyrimidines to other pyrimidines.
 On the opposite end of the spectrum, the general time reversible model (GTR) \citep{Tavare1986} allows for six different exchangeabilities, and for each molecular character to have its own equilibrium frequency.
 This is a more complex model, but it is often supported as being the correct one for many datasets \citep{abadi2019}.
-\rev{Molecular} characters are typically assumed to evolve approximately neutrally, which means we can use relatively straightforward models of molecular evolution.
+\rev{Molecular} characters are typically assumed to evolve approximately neutrally, which means we can use relatively straightforward models of evolution.
 
 Bayesian phylogenetics using morphological characters have historically used a more restricted set of models than analyses of molecular data.
 While we may be able to divide a \rev{discrete} morphological character into multiple states, we may not be able to easily describe how states can transition from one to another over evolutionary time.
@@ -222,7 +224,7 @@ the uncorrelated lognormal clock (UCLN) \rev{model being the most commonly used}
 Under this model, the rate of any particular branch is assumed to be drawn from a lognormal distribution (\rev{see an example in Fig. \ref{fig:distn})}.
 The lognormal is a popular distribution in this type of analysis, as it implies most branches will have low, but typically non-zero, rates of character evolution. 
 Each branch has an independent draw from this distribution, meaning that the rate of a particular branch may be very different from its neighbors.
-The parameters of the lognormal distribution can be fixed, or can be estimated themselves (i.e. are hyperparameters).
+The parameters of the lognormal distribution can be fixed, or can be estimated themselves (i.e., are hyperparameters).
 \rev{Nevertheless}, other distributions, such as the Gamma distribution, \rev{can also be used in these type of uncorrelated clock analyses}.
 A Gamma distribution, as seen on Fig. \ref{fig:distn}, implies some branch rates are very close to zero.
 
@@ -243,7 +245,6 @@ Different distributions can be assumed to allow the descendent's rate to be more
 Autocorrelated clock models can also be continuous.
 A continuous autocorrelated clock model assumes that, again, the distribution from which the rate of a descendent is drawn is centered on the rate of evolution of the ancestor.
 Under these models, \rev{however,} the variance is typically proportional to the the length of the branch.
-
 More sophisticated assumptions can be made under these continuous \rev{autocorrelated} relaxed clock models, such as the variance evolving across the tree \citep{Thorne1998, Kishino2001, Thorne2002, Aris-Brosou2002, Aris-Brosou2003}.
 
 \subsubsection{Local Clocks}
@@ -292,14 +293,14 @@ In contrast, tip-dating directly considers fossil samples as being part of the t
 In this section we provide an overview of popular tree models and describe how they are used in both node- or tip-dating scenarios.
 
 The tree model is often referred to as the tree prior, and in combination with the calibration information, researchers often talk about the resulting prior distribution on node ages.
-Some of the inconsistency in terminology can be attributed to the history of different models used for phylogenetic dating and whether we consider age information used during inference (e.g. fossil sampling times) as data.
+Some of the inconsistency in terminology can be attributed to the history of different models used for phylogenetic dating and whether we consider age information used during inference (e.g., fossil sampling times) as data.
 Under the node-dating approach, fossil sampling times are used to constrain the age of a node.
 In this framework, they are not data \rev{because} the generating process is not explicitly modeled. 
 Instead, the \rev{fossil times} are used to bound the age of a node.
 Alternatively, if we model the process of fossil recovery explicitly, it becomes clear that the fossil ages are actually data, in addition to the morphological characters.
 The terms process- and prior-based have also been used to distinguish between approaches that explicitly model the  process that generated the temporal evidence used in our analysis and those that \rev{did} not \citep{Landis2016}. 
 Here, we use the term tree model to refer to all the models that underlie these different approaches.
-\rev{although we are aware that , TODO not sure this suggestion makes sense} This underscores the existence of a large and important family of models used in Bayesian divergence time inference.
+\rev{Tree models are} a large and important family of models used in Bayesian divergence time inference.
 The tree model and/or the calibration information combined with the tree model can have a major impact on Bayesian estimates of node ages using both node- and tip-dating (e.g., \citep{Ho2009,Warnock2011,OReilly2015,matzke2016,Matschiner2017}).
 
 \subsubsection{Models of speciation, extinction and sampling}
@@ -328,7 +329,7 @@ Figure \ref{fig:birth-death} shows examples of the complete versus \rev{the} rec
 The assumptions made by different tree models are important because they can result in very different distributions of plausible trees.
 Different combinations of the speciation, extinction and sampling parameters give rise on average to different tree shapes, which determine the most probable waiting times between ancestor and descendent nodes 
 in the reconstructed tree.
-For example, a reconstructed tree representing the relationships among a set of living individuals (i.e. the tree includes no extinct samples) is more likely to have shorter internal non-terminal branches and more evenly distributed speciation events if extinction is low relative to speciation.
+For example, a reconstructed tree representing the relationships among a set of living individuals (i.e., the tree includes no extinct samples) is more likely to have shorter internal non-terminal branches and more evenly distributed speciation events if extinction is low relative to speciation.
 Conversely, the reconstructed tree is more likely to have longer internal branches and on average older node ages if extinction is high.
 More speciation events are missing from the reconstructed tree because extinct species are absent and there is a higher chance we have to go further back in time to find the speciation event linking any of our extant samples.
 
@@ -339,10 +340,10 @@ We typically use priors to constrain these parameters.
 In the node-dating scenario, the tree represents the relationships between living samples and we typically use a tree model that includes extant species sampling only, excluding the process of fossil recovery.
 Temporal information from the fossil record is instead incorporated through the use of \textit{node calibrations}. 
 For one or more internal nodes in our phylogeny we may have information about the age of the speciation event based on fossil or other geological evidence.
-For example, for a given pair of lineages, the age of the first appearance of either one of these lineages represents a minimum (i.e. younger) bound for the age of the node separating them \citep{Parham2012}.
+For example, for a given pair of lineages, the age of the first appearance of either one of these lineages represents a minimum (i.e., younger) bound for the age of the node separating them \citep{Parham2012}.
 We can represent the uncertainty in the age of this node using a probability distribution. %LH: would it be an idea to discuss what are the common prob distributions considered (and why)?
 This information is combined with the tree model to produce a distribution of trees that have branch lengths in units of absolute time.
-This approach is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery, since it does not consider the process that gave rise to the data (i.e. the fossil sampling times).
+This approach is somewhat less biologically intuitive than an explicit model of diversification and fossil recovery, since it does not consider the process that gave rise to the data (i.e., the fossil sampling times).
 This leads to technical challenges combining node calibrations with the tree model and in interpreting the resulting distribution on node ages \citep{Heled2012,Warnock2015}.
 It also requires assigning a fossil age to a fixed node in the extant species tree, ignoring the potential for phylogenetic uncertainty in the placement of the fossil species.
 
@@ -387,9 +388,9 @@ Trees based on individual genes can be quite different from the true underlying 
 This occurs when coalescence events between individuals belonging to populations of different species are older than the speciation event.
 This scenario is known as \textit{incomplete lineage sorting} and can lead to a mismatch between gene and species trees.
 Following speciation, it takes time for genes to become sorted across distinct species populations, such that gene trees  eventually reflect the species tree \citep{Maddison2006}.
-This interval of time depends on several factors, including population size, and can be extremely long (e.g. populations of humans and chimpanzees still share genetic differences). 
+This interval of time depends on several factors, including population size, and can be extremely long (e.g., populations of humans and chimpanzees still share genetic differences). 
 However, the mismatch between gene and species trees can actually persist forever if genes do not become sorted before subsequent speciation events \citep{Xu2016}. 
-Mismatch is most likely to occur when the branches separating speciation events are very short, irrespective of the timescales involves \rev{(i.e. whether the events are geological recent or not)}. This scenario creates a huge challenge \rev{when} inferring the species tree.
+Mismatch is most likely to occur when the branches separating speciation events are very short, irrespective of the  \rev{time since speciation (i.e., whether the events are geological recent or not)}. This scenario creates a huge challenge \rev{when} inferring the species tree.
 Discerning the relationships between the major lineages of birds is a good example of this issue --- these events happened almost 66 myr, but the internal branches in this portion of the tree are extremely short. As a consequence, different gene trees produce conflicting topologies \citep{Jarvis2014}.
 In the face of considerable conflict, identifying a consensus is not straightforward. 
 %In particularly problematic cases, we can not simply get around this issue by concatenating genes.
@@ -408,10 +409,7 @@ Temporal evidence for the age of a node can also come from the geological events
 For example, the current biogeographic distribution of living taxa may indicate that species divergence is tied to specific tectonic events that likely resulted in genetic isolation, such as island formation or the break up of continents that previously existed  in Earth's history.
 This approach is especially useful for taxonomic groups with a sparse or non-existent fossil record.
 Age information can be incorporated using a node dating approach, where the timing of biogeographic events are used to inform the calibration distributions, and the tree generating process can be described using a birth-death model.
-One challenge to this approach is establishing a definitive causal link between tectonic and speciation processes, especially if events happened a long time ago (e.g.\ the breakup of Gondwana).
-
-%It relies on information about the biogeographic distribution of species, sometimes in combination with evidence from the corresponding molecular phylogeny.
-%Further, major tectonic events are often  protracted rather than instantaneous events, and establishing the age range during which topological changes became a barrier to dispersal or gene flow is typically not straightforward.}
+One challenge to this approach is establishing a definitive causal link between tectonic and speciation processes, especially if events happened a long time ago (e.g.,\ the breakup of Gondwana) \rev{deBeats2016}.
 
 More recently, process-based models have been introduced for biogeographic dating and tree inference \citep{Landis2016,Landis2019}.
 This approach is conceptually similar to birth-death models that incorporate the fossil recovery process in that they explicitly incorporate a model of the evolution of biogeography.
@@ -428,7 +426,7 @@ In principle, we could even combine models of biogeographic processes with model
 \section{Expanding the potential of the tripartite model within the Bayesian framework}
 
 Bayesian priors incorporate our pre-existing knowledge about parameter values. %(see Box)
-We tend to think about the role of priors as being restricted to  constraining the range of possible values a given parameter can take, e.g. the clock rate or speciation rate, or to express which values are most probable based on what we already known.
+We tend to think about the role of priors as being restricted to  constraining the range of possible values a given parameter can take, e.g., the clock rate or speciation rate, or to express which values are most probable based on what we already known.
 However, we can use priors to manipulate the parameter space in much more sophisticated ways than we are currently used to doing.
 We can expand the range of assumptions we are able to make about the underlying biological processes and take advantage of Bayesian approaches to model testing.
 The development of more flexible Bayesian software, such as \textsc{RevBayes} \citep{Hoehna2014b, Hoehna2016b} and BEAST2 \citep{BEAST2}, make complex inference much more accessible to everyday users.
@@ -439,11 +437,10 @@ For example, in molecular genetics, partitioning by gene and applying an appropr
 Likewise, different models of morphological evolution can be \rev{used interchangeably}. %substituted
 For example, the assumption made by the Mk model that a character is equally likely to change state as to reverse that state change may seem unrealistic. 
 In this case, a model that allows asymmetrical rates of change \citep{Ronquist2004} could be substituted. 
- This model puts a prior on character state frequencies, allowing them to be unequal.
- This increases the probability of certain types of character change.
+ This \rev{alternative} model puts a prior on character state frequencies, allowing them to be unequal, which increases the probability of certain types of character change.
  For example, many changes are likely to be observed from a common character state to other states.
-Character change asymmetry has recently been shown to affect divergence time estimation \citep{Klopfstein2019}, \rev{as well as tree inference \citep{Wright2016}, using discrete character data.}
-If a researcher believes this to be the correct model for their data, it can be substituted for a traditional Mk model, without necessarily needing to alter the clock or tree models. 
+Character change asymmetry has recently been shown to affect divergence time estimation \rev{based on discrete character data\citep{Klopfstein2019}, as well as tree inference \citep{Wright2016}.}
+If a researcher believes this to be the correct model for their data, it can be substituted for a traditional Mk model, without necessarily needing to alter the clock or tree models.
 
 Depending on our parameters of interest, we can change the way our models are parameterized.
 For example, we may be more interested in diversification ($d$) and turnover ($r$) than speciation ($\lambda$) and extinction ($\mu$).
@@ -493,6 +490,15 @@ While both of these are useful tools, it can be difficult to understand how the 
 Limited data sizes, biased missing data, and violations of model assumptions can all lead to unpredictable analytical behavior.
 Therefore, it is critical for %researchers 
 empiricists and theoreticians to collaborate to understand the challenges faced by researchers at the forefront of collecting data, and improve our methods to meet them.
+
+
+\rev{Here, we focused on the scenario in which we have both phylogenetic character data as well as temporal evidence of speciation, and where the goal is to estimate divergence times or to co-estimate divergence times and topology.
+The inclusion of molecular or morphological characters requires both the substitution and clock model.
+We can not infer the topology without phylogenetic characters, however, in principle, the tree model can still be used to infer the divergence times for a tree topology obtained using other evidence. 
+For example, phylogenies based on taxonomic classification have been shown to be valuable in phylogenetic comparative analyses \citep{soul2015}.
+In this context, the tree may not be fully resolved but the timing of key divergence events can still be estimated under the tree model, taking into account the uncertainty at unresolved nodes.
+Similarly, since fossil sampling times are informative about the speciation, extinction and fossil recovery rates, the FBD and related models can be used to recover these parameters, even without any knowledge about the underlying phylogeny %if the phylogeny and divergence times can not be recovered 
+\citep{Warnock2020}. }
 
 \section{Conclusions}
 
