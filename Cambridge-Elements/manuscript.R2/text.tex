@@ -1,6 +1,8 @@
 
 \section{Introduction}
 
+\rev{TODO do we need to any additional refs?}
+
 Phylogenetic inference, \rev{also known as phylogenetic tree inference or simply tree inference}, is common in all facets of biology and estimating a phylogeny is a critical step in many comparative analyses. The fact that tree inference is common can obscure the underlying complexity of the task.
 When a researcher estimates a phylogeny, they are attempting to reconstruct evolutionary events that potentially occurred millions of years ago.
 In modern phylogenetics, \rev{inferring} trees is often achieved \rev{by} using an evolutionary model \rev{that} ideally captures the generating processes that underlie our data.
@@ -32,6 +34,8 @@ Finally, we discuss how different aspects of the tripartite model can be linked 
 \rev{TODO Reviewer 1: One thing I thought might help ?sell? the paper to an phylogenetically unfamiliar audience of paleontologists would be to highlight more empirical case studies mostly or entirely comprised of fossil data (to help point readers to examples on groups having fossil records like the one they know best). That said, I wouldn?t necessarily advocate any additional section(s) be added to compensate--just a thought.}
 
 \section{A brief introduction to Bayesian inference in phylogenetics}
+
+\rev{TODO watch out for redundancy in this section.}
 
 In this review, we focus on divergence time estimation using Bayesian methods, which incorporate prior information and researcher intuition about parameters in our model.
 Unlike some other \rev{approaches}, Bayesian methods estimate a sample of phylogenetic trees and \rev{as well as a sample of} values for the parameters of the underlying phylogenetic model.
@@ -254,7 +258,7 @@ A random local clock allows a subtree to have its own rate of evolution \citep{y
 The branch subtending the subtree is the position of the shift between one clock rate and a new clock rate. 
 Generally, the new clock rate applies to the whole subtree, without relaxation.
 The number of local clocks can vary between zero (one strict clock) to the number of branches on the tree (a fully relaxed clock).
-Both the number of clocks that describe the tree and the location of the shifts from one clock to another are sampled during the MCMC in implementations of this model \citep{Drummond2010}. 
+Both the number of clocks that describe the tree and the location of the shifts from one clock to another are sampled during the MCMC in implementations of this model \citep{Drummond2010}. \rev{TODO this is the first time we mention MCMC, we should probably introduce this earlier on.}
 
 
 \subsubsection{Other Models of Evolutionary Rate Variation}
