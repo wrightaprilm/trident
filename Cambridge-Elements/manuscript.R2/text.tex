@@ -21,11 +21,11 @@ Fig. \ref{fig:undated} provides a recap of the most important features of a phyl
 An undated phylogeny will typically have branch lengths in units that reflect the overall number of molecular or morphological character changes \rev{that have occurred between the two edges of a branch (i.e., between the ancestral node and the younger node represented at the edges of this branch, respectively)}, while a dated tree will \rev{use} units of calendar time, such as years or millions of years.
 
 \ifnum\value{num}=10 {
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Cambridge-Elements/manuscript.R2/submitted_figs//figure1}
 \label{fig:undated}
-\caption{Undated versus dated phylogenetic inference.
+\caption{\footnotesize\textbf{Undated versus dated phylogenetic inference.}
 A phylogenetic tree is comprised of \textit{tips} (indicated with circles in panel A), which represent the taxa between which we aim to infer the evolutionary relationships.
 These taxa are connected by \textit{branches}. 
 The branches are connected by \textit{nodes} (indicated with triangles in panel A), which reflect the most recent common ancestor between two given tips. 
@@ -91,6 +91,20 @@ A random variable has an unknown value, \rev{for which candidate values will be 
 Bayesian analyses typically sample large numbers of solutions that explain how the data \rev{may have been} generated \rev{under the specified} model, with each sample appearing in proportion to its probability.
 In the tripartite model for divergence time estimation, all parts of the model (substitution model, clock model and tree model) will be represented in the likelihood, as well as in the prior (Fig. \ref{fig:bayes}).
 
+\ifnum\value{num}=10{
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{Cambridge-Elements/manuscript.R2/submitted_figs//figure2}
+\caption{\footnotesize\textbf{A tripartite model for Bayesian divergence time estimation.}
+The top panel shows the key ingredients required during inference.
+The data used to generate time calibrated trees: molecular or morphological phylogenetic characters, and age information, typically fossil sampling times.
+The model includes the substitution (site) model, which describes the evolution of characters, the clock model, which describes the distribution of evolutionary rates across the tree, and the tree model, which describes the distribution of speciation events across the tree.
+Bayes theorem is presented in the middle panel. 
+The bottom panel illustrates how everything comes together for the Bayesian estimation of divergence times.
+This figure is based on Fig. 1 in \citep{duPlessis2015}.
+}
+\label{fig:bayes}
+\end{figure} }\else{}\fi
 
 \subsection{The prior}
 
@@ -216,6 +230,24 @@ Does a change from \rev{state} `0' to `1' at character `1' imply the same magnit
 The lack of consistent meanings to character states has limited the assumptions that can be made about the process that generated morphological data.
 Due to the limited number of morphological models available, model testing has not become common in morphological phylogenetics yet (though see an example of empirical model fitting in \cite*{bapst2017} and in Wagner, Wright and Wright in this volume), and understanding the role of the morphological model in divergence time estimation is an active area of scholarship \citep{Klopfstein2019}.
 
+%figure 3
+\ifnum\value{num}=10{
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Cambridge-Elements/manuscript.R2/submitted_figs//figure3}
+\caption{\footnotesize\textbf{Phylogenetic $Q$ matrices.}
+In this schematic, we have several representations of different types of character change.
+For nucleotide data, we know that we are more likely to see certain types of change, such as two-ringed bases (purines) transitioning to other two-ringed bases, and one-ringed bases transitioning to other one-ringed bases.
+This is represented by thicker arrows connecting these bases.
+On the other hand, for morphological data, character states do not carry common meaning across characters.
+At one character, changing, for example, from a `0' state to a `1' state may be a small change.
+At another, it may mean gaining a complex character.
+Therefore, researchers have largely used the Mk model of Lewis (2001) to model these data.
+The schematic below shows the assumption of equal change probability between states.
+}
+\label{fig:Q}
+\end{figure} }\else{}\fi
+
 Because of the lack of common meanings between morphological character states, those working with morphological characters have largely been confined to working with the Mk model \citep{Lewis2001} \rev{for discrete character evolution}.
 This model is a translation of the Jukes-Cantor model \citep{Jukes1969} of sequence evolution to morphological characters.
 Therefore, it makes the same assumptions about the generating process: that exchangeabilities are the same among all \rev{character} states, and that all states have equal equilibrium character frequencies.
@@ -262,6 +294,15 @@ The parameters of the lognormal distribution can be fixed, or can be estimated t
 \rev{Nevertheless}, other distributions, such as the \rev{exponential} distribution, \rev{can also be used in these type of uncorrelated clock analyses}.
 An \rev{exponential} distribution, as seen on Fig. \ref{fig:distn}, implies some branch rates are very close to zero.
 
+%figure 4
+\ifnum\value{num}=10{
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Cambridge-Elements/manuscript.R2/submitted_figs//figure4}
+\caption{\footnotesize\textbf{A schematic showing different clock models}, and what they mean for the distribution of evolutionary rates across the tree. \rev{For each clock type, a set of sample distributions are shown. These distributions demonstrate how the distribution will look if a different prior is selected for its underlying parameters. An arrow indicates which distribution was used to simulate the rates shown on the sample tree.} Row one shows an uncorrelated clock, with branch rates drawn from the exponential distribution. Because this clock is uncorrelated, a descendent may have a very different rate of evolution than its ancestor.  In the second row, an autocorrelated clock, rates of evolution in the ancestor and descendant are expected to be more similar. \rev{As can be seen in the set of sample distributions, low values for the exponential rate parameter or the lognormal log variance parameter result in very wide distributions, implying that there can be a wide range of evolutionary rates across the tree. When the rate or log variance parameters are high, the rates are more constrained.} The third row shows Dirichlet-distributed rates. This is a biologically agnostic clustering method for assigning branch rates. \rev{As can be seen in the distributions for this parameter, a high shape parameter implies a strong central tendency, and low values imply more variation in rates. \rev{Code to reproduce this figure is provided in the supplement.}}
+}
+\label{fig:distn}
+\end{figure} }\else{}\fi
 
 
 \subsubsection{Autocorrelated Clock}
@@ -359,6 +400,21 @@ In contrast, we tend to model fossil recovery as a continuous process, with an a
 Tree models capture the underlying processes (speciation, extinction and sampling) that result in the \textit{complete} tree, including sampled and non-sampled lineages. But to calculate the probability of observing the  \textit{reconstructed} tree (the tree representing the relationships between sampled individuals only), we need to account for the fact that we only sample some subset of lineages.
 For example, if we only sample living species, but assume both speciation and extinction have occurred, we need to use the expression for the \rev{probability} of observing our tree, given we only sample species at the present and none in the past \citep{Thompson1975,Gernhard2008, Stadler2009}.  Similarly, if we only sample a subset \rev{that does not include} all living species, we need to \rev{use} a model that incorporates incomplete extant species sampling \citep{Yang1997,Stadler2009}.
 Figure \ref{fig:birth-death} shows examples of the complete versus \rev{the} reconstructed tree for different birth-death process models.
+
+%figure 5
+\ifnum\value{num}=10{
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{Cambridge-Elements/manuscript.R2/submitted_figs//figure5}
+\caption{\footnotesize\textbf{The complete versus reconstructed trees under birth-death process models.}
+The assumptions of four different models are captured in each row.
+The first column shows an example outcome of the joint diversification and sampling processes (i.e. the complete tree), where diamonds represent  extant or fossil samples.
+The second column shows the tree that contains sampled lineages only (i.e. the reconstructed tree). 
+The third column shows the parameters and the name commonly applied to model used to described the probability of observing the reconstructed tree shown in column two given we assume the generating processes shown in column one.
+In all cases we assume constant speciation, extinction and fossil recovery, and uniform extant species sampling.
+Trees and fossils were simulated and plotted using the R packages \texttt{TreeSim} \citep{Stadler2011} and \texttt{FossilSim} \citep{BaridoSottani2019b}. \rev{Code to reproduce this figure is provided in the supplement.}}
+\label{fig:birth-death}
+\end{figure} }\else{}\fi
 
 
 The assumptions made by different tree models are important because they can result in very different distributions of plausible trees.

@@ -16,7 +16,7 @@ In phylogenetics, we often refer to our models as continuous-time Markov chains.
 `Continuous-time' refers to models allowing change between character states to occur instantaneously at any point in an evolutionary history.
 Changes in the character state \rev{are} not confined to the node; instead, branch lengths on a phylogeny are proportional to the number of expected changes per character along that particular branch. 
 In this context, `Markov chain' refers to the  joint probability distribution including all the parameters for the model of morphological substitution, the model of molecular substitution, and the tree and clock models. 
-In practice, this is the computer model that we use to estimate the posterior \cite{Hoehna2016b}.
+In practice, this is the computer model that we use to estimate the posterior \citep{Hoehna2016b}.
 \end{boxedtext}
 
 \begin{boxedtext}{Hierarchical Models}
@@ -39,7 +39,7 @@ In maximum likelihood estimation, models are proposed, and the likelihood of the
 The model that gives the \rev{highest} likelihood is considered to be `the best'.
 This is generally a point estimate returning one tree, one set of branch lengths, and one set of other model parameters.
 
-Inference of undated trees from \rev{molecular and/or} morphological data can be accomplished in many pieces of maximum likelihood software, such as PAUP \citep{Swofford2003}, RAxML \citep{Stamatakis2014}, IQTREE \citep{IQtree}, and GARLI \cite{zwickl2006}.
-Estimation of dated trees incorporating \rev{molecular and/or} morphological data has mostly been accomplished in a Bayesian context, using software such as MrBayes \cite{Huelsenbeck2002, Ronquist2003}, BEAST \citep{BEAST}, BEAST2 \citep{BEAST2} , MCMCTree \citep{MCMCtree}, and RevBayes \citep{Hoehna2014b, Hoehna2016b}.
+Inference of undated trees from \rev{molecular and/or} morphological data can be accomplished in many pieces of maximum likelihood software, such as PAUP \citep{Swofford2003}, RAxML \citep{Stamatakis2014}, IQTREE \citep{IQtree}, and GARLI \citep{zwickl2006}.
+Estimation of dated trees incorporating \rev{molecular and/or} morphological data has mostly been accomplished in a Bayesian context, using software such as MrBayes \citep{Huelsenbeck2002, Ronquist2003}, BEAST \citep{BEAST}, BEAST2 \citep{BEAST2}, MCMCTree \citep{MCMCtree}, and RevBayes \citep{Hoehna2014b, Hoehna2016b}.
 While there is no reason models such as the FBD cannot be estimated using maximum likelihood, in practice, it is not straightforward to incorporate the uncertainty associated with parameters within a maximum likelihood framework.
 \end{boxedtext}
