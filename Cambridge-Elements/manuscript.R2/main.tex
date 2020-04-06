@@ -13,6 +13,8 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 
+\usepackage{ifthen}
+
 %% Use APA style for author-year citation scheme for submission
 \usepackage[natbibapa]{apacite}
 \bibliographystyle{apacite}
@@ -43,6 +45,9 @@
 \affil{Department of Biological Sciences, Southeastern Louisiana University, Hammond, United States}
 
 \begin{document}
+
+\newcounter{num}
+\setcounter{num}{0} %use 10 for interspersing figs in the text
 
 %%%%-----------------------
 \frontmatter  %% DO NOT DELETE
