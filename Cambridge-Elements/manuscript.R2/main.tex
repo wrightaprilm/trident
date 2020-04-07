@@ -112,68 +112,31 @@ A.M.W. was funded by a grant from the Louisiana Biomedical Research Network, a N
 \begin{figure}[h!]
 \centering
 %\includegraphics[height=6cm, width=7.75cm]{figures/UnscaledTree.pdf} \includegraphics[height=6cm, width=7.75cm]{figures/Scaley.pdf}
-\label{fig:undated}
-\caption{Undated versus dated phylogenetic inference.
-A phylogenetic tree is comprised of \textit{tips} (indicated with circles in panel A), which represent the taxa between which we aim to infer the evolutionary relationships.
-These taxa are connected by \textit{branches}. 
-The branches are connected by \textit{nodes} (indicated with triangles in panel A), which reflect the most recent common ancestor between two given tips. 
-The overall structure of the tree used to represent phylogenetic relationships is referred to as the \textit{topology}.
-In an undated phylogeny branch lengths are typically in units that represent the overall amount of character change, \rev{indicated here by the scale bar. In undated model based tree inference, the units usually represent the number of expected changes per character}.
-A tree estimated with no temporal information can be seen in panel A.
-In a time calibrated tree the branch lengths will be in units of calendar time, often in years or millions of years. 
-Panel B shows the same tree from panel A, but with branches in millions of years, along with stratigraphic ranges (grey boxes).}
-\label{fig:undated}
+\include{submitted_figs/figure1}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 %\includegraphics[width=\textwidth]{figures/bayes-theorem-v2.pdf}
-\caption{A tripartite model for Bayesian divergence time estimation.
-The top panel shows the key ingredients required during inference.
-The data used to generate time calibrated trees: molecular or morphological phylogenetic characters, and age information, typically fossil sampling times.
-The model includes the substitution (site) model, which describes the evolution of characters, the clock model, which describes the distribution of evolutionary rates across the tree, and the tree model, which describes the distribution of speciation events across the tree.
-Bayes theorem is presented in the middle panel. 
-The bottom panel illustrates how everything comes together for the Bayesian estimation of divergence times.
-This figure is based on Fig. 1 in \citep{duPlessis2015}.
-}
-\label{fig:bayes}
+\include{submitted_figs/figure2}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 %\includegraphics[width=\textwidth]{figures/Q.pdf}
-\caption{Phylogenetic $Q$ matrices.
-In this schematic, we have several representations of different types of character change.
-For nucleotide data, we know that we are more likely to see certain types of change, such as two-ringed bases (purines) transitioning to other two-ringed bases, and one-ringed bases transitioning to other one-ringed bases.
-This is represented by thicker arrows connecting these bases.
-On the other hand, for morphological data, character states do not carry common meaning across characters.
-At one character, changing, for example, from a `0' state to a `1' state may be a small change.
-At another, it may mean gaining a complex character.
-Therefore, researchers have largely used the Mk model of Lewis (2001) to model these data.
-The schematic below shows the assumption of equal change probability between states.
-}
-\label{fig:Q}
+\include{submitted_figs/figure3}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 %\includegraphics[width=\textwidth]{figures/Distributions.pdf}
-\caption{A schematic showing different clock models, and what they mean for the distribution of evolutionary rates across the tree. \rev{For each clock type, a set of sample distributions are shown. These distributions demonstrate how the distribution will look if a different prior is selected for its underlying parameters. An arrow indicates which distribution was used to simulate the rates shown on the sample tree.} Row one shows an uncorrelated clock, with branch rates drawn from the exponential distribution. Because this clock is uncorrelated, a descendent may have a very different rate of evolution than its ancestor.  In the second row, an autocorrelated clock, rates of evolution in the ancestor and descendant are expected to be more similar. \rev{As can be seen in the set of sample distributions, low values for the exponential rate parameter or the lognormal log variance parameter result in very wide distributions, implying that there can be a wide range of evolutionary rates across the tree. When the rate or log variance parameters are high, the rates are more constrained.} The third row shows Dirichlet-distributed rates. This is a biologically agnostic clustering method for assigning branch rates. \rev{As can be seen in the distributions for this parameter, a high shape parameter implies a strong central tendency, and low values imply more variation in rates.\rev{Text to reproduce this figure is provided in the supplement.}}
-}
-\label{fig:distn}
+\include{submitted_figs/figure4}
 \end{figure}
 
 \begin{figure}
 \centering
 %\includegraphics[width=\textwidth]{figures/birth-death-trees-v2.pdf}
-\caption{The complete versus reconstructed trees under birth-death process models.
-The assumptions of four different models are captured in each row.
-The first column shows an example outcome of the joint diversification and sampling processes (i.e. the complete tree), where diamonds represent  extant or fossil samples.
-The second column shows the tree that contains sampled lineages only (i.e. the reconstructed tree). 
-The third column shows the parameters and the name commonly applied to model used to described the probability of observing the reconstructed tree shown in column two given we assume the generating processes shown in column one.
-In all cases we assume constant speciation, extinction and fossil recovery, and uniform extant species sampling.
-Trees and fossils were simulated and plotted using the R packages \texttt{TreeSim} \citep{Stadler2011} and \texttt{FossilSim} \citep{BaridoSottani2019b}. \rev{Text to reproduce this figure is provided in the supplement.}}
-\label{fig:birth-death}
+\include{submitted_figs/figure5}
 \end{figure}
 
 \end{document}
