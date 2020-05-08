@@ -1,0 +1,49 @@
+\begin{boxedtext}{The likelihood the prior and the posterior} 
+%for some reason you can't have a comma in the box titles
+It can be confusing in the beginning to understand what the model likelihood, the prior, \rev{and} the posterior truly mean.
+In plain language, the model likelihood is the probability of the data given a model.
+Without a model, there can be no calculation of the model  likelihood.
+
+Priors can be set on parameters in the model, specifying distributions from which the value is thought to be drawn.
+These distributions are often based on the researcher's intuition, and on information from prior studies.
+The posterior distribution is a set of plausible solutions given the model likelihood and the prior.
+During Bayesian estimation, different values will be sampled for model parameters.
+Their probability will be evaluated according to the likelihood and the prior.
+Therefore, the posterior is proportional to the likelihood and the prior.
+A good solution will often appear in the posterior sample many times.
+
+In phylogenetics, we often refer to our models as continuous-time Markov chains.
+`Continuous-time' refers to models allowing change between character states to occur instantaneously at any point in an evolutionary history.
+Changes in the character state \rev{are} not confined to the node; instead, branch lengths on a phylogeny are proportional to the number of expected changes per character along that particular branch. 
+%In this context, `Markov chain' refers to the joint probability distribution including all the parameters for the model of morphological substitution, the model of molecular substitution, and the tree and clock models. %Joelle: the Markov chain component refers to the fact that these models are memory-less, i.e. that the event probabilities at any point in the process depend only on the current state and not on the history of the process - so it's not an inherent property of phylogenetic models, just the existing ones
+\revJ{In this context, `Markov chain' refers to the fact that (existing) phylogenetic models are memory-less. This means the joint probability --- taking into account all the parameters for the model of morphological substitution, the model of molecular substitution, and the tree and clock models --- depends only on the current state and not on the history of the process}.
+In practice, this is the computer model that we use to estimate the posterior \citep{Hoehna2016b}.
+\end{boxedtext}
+
+\begin{boxedtext}{Hierarchical Models}
+The tripartite approach to divergence time estimation is what is termed a \textit{hierarchical model}. 
+Hierarchical models are models in which variation may be described by different submodels.
+In the case of divergence time estimation, the character data \rev{(molecular and/or morphological)} is described by one model, such as the Mk model.
+The distribution of evolutionary rates across branches is described by the clock model.
+Finally, the distribution of speciation, extinction and fossil sampling is described by the tree model.
+Together, these three components are used to estimate a tree, branch lengths in units of time, and other relevant model parameters.
+
+This term may be confusing, as model components may have a hierarchy of priors. 
+For example, if we placed a lognormal distribution with shape parameter 10 on the mean clock rate, this is a prior.
+If instead, we placed an exponential prior on the shape parameter \rev{of the lognormal distribution}, that exponential prior is called \textit{hyperprior}.
+This, while a hierarchy of priors, is not a hierarchical model in the same way that the complete tripartite model for divergence time estimation is hierarchical.
+
+See \citet{Heath2012a} for a nice example of the hyperprior approach to modeling uncertainty in the parameters associated with fossil calibration densities.
+\end{boxedtext}
+
+\begin{boxedtext}{Maximum Likelihood and Bayesian Estimation}
+As discussed in the section `The Likelihood', the probability of the data is calculated given a model. 
+In maximum likelihood estimation, models are proposed, and the likelihood of the data is calculated given each of those models.
+The model that gives the \rev{highest} likelihood is considered to be `the best'.
+This is generally a point estimate returning one tree, one set of branch lengths, and one set of other model parameters.
+See \citet{Holder2003} and \citet{Yang2012} for more information on the details and history of these different approaches.
+
+Inference of undated trees from \rev{molecular and/or} morphological data can be accomplished in many pieces of maximum likelihood software, such as PAUP \citep{Swofford2003}, RAxML \citep{Stamatakis2014}, IQTREE \citep{IQtree}, and GARLI \citep{zwickl2006}.
+Estimation of dated trees incorporating \rev{molecular and/or} morphological data has mostly been accomplished in a Bayesian context, using software such as MrBayes \citep{Huelsenbeck2002, Ronquist2003}, BEAST \citep{BEAST}, BEAST2 \citep{BEAST2}, MCMCTree \citep{MCMCtree}, and RevBayes \citep{Hoehna2014b, Hoehna2016b}.
+While there is no reason models such as the FBD cannot be estimated using maximum likelihood, in practice, it is not straightforward to incorporate the uncertainty associated with parameters within a maximum likelihood framework.
+\end{boxedtext}

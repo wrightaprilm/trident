@@ -26,6 +26,7 @@
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 \newcommand{\aw}[1]{{\textcolor{armygreen}{[AW: #1]}}} % %AW comment
 \newcommand{\rev}[1]{{\textcolor{black}{#1}}} % %edit
+\newcommand{\revJ}[1]{{\textcolor{red}{#1}}} % %edit
 
 \newenvironment{boxedtext}[1]{%
   \begin{mdframed}[frametitle=#1,
@@ -67,16 +68,21 @@ In this article we describe the tripartite model used for Bayesian estimation of
 The model can be readily separated into its component models: the substitution model, the clock model and the tree model.
 We provide an overview of the most widely used models for each component and highlight the advantages of implementing the tripartite model within a Bayesian framework.
 
-\include{Cambridge-Elements/manuscript.R2/text}
+\include{Cambridge-Elements/manuscript.R3/text}
 
 \clearpage
 
-\include{Cambridge-Elements/manuscript.R2/boxes}
+\include{Cambridge-Elements/manuscript.R3/boxes}
 
 \clearpage
+
+\section*{Acknowledgements}
+We thank Sandra \'Alvarez-Carretero, David Bapst, Jo\"elle Barido-Sottani, Jeremy Brown, Michael Landis, Lee Hsiang Liow and \rev{one anonymous reviewer} for feedback that helped greatly improve the manuscript.
+R.C.M.W. was funded by the ETH Z\"urich Postdoctoral Fellowship and Marie Curie Actions for People COFUND programme.
+A.M.W. was funded by a grant from the Louisiana Biomedical Research Network, a National Institutes of Health Institutional Development Award.
 
 \bibliographystyle{mbe}
-\bibliography{Cambridge-Elements/manuscript.R2/refs}
+\bibliography{Cambridge-Elements/manuscript.R3/refs}
 
 \end{document}
 

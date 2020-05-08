@@ -1,0 +1,148 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A template for CUP Elements article submissions.
+% Developed by Overleaf.
+%
+% Please note that whilst this template provides a 
+% preview of the typeset manuscript for submission, it 
+% will not necessarily be the final publication layout.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{cup-elements}
+
+\usepackage{blindtext}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{ifthen}
+
+%% Use APA style for author-year citation scheme for submission
+\usepackage[natbibapa]{apacite}
+\bibliographystyle{apacite}
+
+\newcommand{\rev}[1]{{\textcolor{black}{#1}}} % %edit
+\newcommand{\revJ}[1]{{\textcolor{red}{#1}}} % %edit
+\newcommand{\aw}[1]{{\textcolor{blue}{#1}}} % %edit
+
+%% Use these lines if you're using the IEEE numerical style
+% \bibliographystyle{IEEEtran}
+% \let\citep\cite
+% \let\citet\cite
+
+%% If you wish to load hyperref, please ensure it's loaded after all other packages except cleveref
+% \usepackage{hyperref}
+
+\CUPseries{Cambridge Elements}
+\CUPelements{Elements of Paleontology}
+
+\title{Understanding the tripartite approach to Bayesian divergence time estimation}
+
+%\subtitle{This is a subtitle just for testing purposes}
+
+\author{Rachel C. M. Warnock}
+\affil{Department of Biosystems Science and Engineering, ETH Z\"urich, Basel, Switzerland}
+\affil{Swiss Institute of Bioinformatics (SIB), Switzerland}
+
+\author{April M. Wright}
+\affil{Department of Biological Sciences, Southeastern Louisiana University, Hammond, United States}
+
+\begin{document}
+
+\newcounter{num}
+\setcounter{num}{0} %use 10 for interspersing figs in the text
+
+%%%%-----------------------
+\frontmatter  %% DO NOT DELETE
+%%%%-----------------------
+\maketitle
+
+\begin{abstract}
+% \blindtext
+Placing evolutionary events in the context of geological time is a fundamental goal in  paleobiology and macroevolution.
+In this article we describe the tripartite model used for Bayesian estimation of time calibrated phylogenetic trees.
+The model can be readily separated into its component models: the substitution model, the clock model and the tree model.
+We provide an overview of the most widely used models for each component and highlight the advantages of implementing the tripartite model within a Bayesian framework.
+\end{abstract}
+
+\keywords{Bayesian phylogenetics,
+paleobiology,
+species divergence times,
+morphological clock,
+fossil calibration}
+
+\JEL{A12, B34, C56, D78, E90}
+
+\copyrightauthor{Rachel C. M. Warnock, April M. Wright, 2019}
+
+%%%%-----------------------
+\mainmatter  %% DO NOT DELETE
+%%%%-----------------------
+
+\include{text}
+
+\clearpage
+
+\include{boxes}
+
+%\blinddocument 
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=.8\textwidth]{example-image}
+%\caption{An example figure}
+%\addnote{These are the figure notes. These are the figure notes. These are the figure notes.}
+%\addsource{These are the figure sources.}
+%\end{figure}
+
+%\section{This is a very long title to see how it behaves in the table of contents}
+
+%%%%-----------------------
+\appendix  %% DO NOT DELETE
+%%%%-----------------------
+
+\bibliography{refs}
+
+\section*{Acknowledgements}
+We thank Sandra \'Alvarez-Carretero, David Bapst, Jo\"elle Barido-Sottani, Jeremy Brown, Michael Landis, Lee Hsiang Liow and \rev{one anonymous reviewer} for feedback that helped greatly improve the manuscript.
+R.C.M.W. was funded by the ETH Z\"urich Postdoctoral Fellowship and Marie Curie Actions for People COFUND programme.
+A.M.W. was funded by a grant from the Louisiana Biomedical Research Network, a National Institutes of Health Institutional Development Award.
+
+\clearpage
+
+\section*{Figure legends}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[height=6cm, width=7.75cm]{figures/UnscaledTree.pdf} \includegraphics[height=6cm, width=7.75cm]{figures/Scaley.pdf}
+\include{submitted_figs/figure1}
+\label{fig:undated}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/bayes-theorem-v2.pdf}
+\include{submitted_figs/figure2}
+\label{fig:bayes}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/Q.pdf}
+\include{submitted_figs/figure3}
+\label{fig:Q}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%\includegraphics[width=\textwidth]{figures/Distributions.pdf}
+\include{submitted_figs/figure4}
+\label{fig:distn}
+\end{figure}
+
+\begin{figure}
+\centering
+%\includegraphics[width=\textwidth]{figures/birth-death-trees-v2.pdf}
+\include{submitted_figs/figure5}
+\label{fig:birth-death}
+\end{figure}
+
+\end{document}
