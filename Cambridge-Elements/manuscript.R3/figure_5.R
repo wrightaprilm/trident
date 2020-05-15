@@ -1,5 +1,5 @@
 
-source("reconstructed.tree.R") # jumble of function used to generate reconstructed tree and corresponding fossils objects
+source("reconstructed.tree.R") # functions used to generate reconstructed tree and corresponding fossils objects
 
 set.seed(123)
 
